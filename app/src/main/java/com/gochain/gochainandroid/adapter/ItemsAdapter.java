@@ -36,6 +36,14 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
             name = (TextView) view.findViewById(R.id.item_name);
             image = (ImageView) view.findViewById(R.id.item_photo);
             overflow = (ImageView) view.findViewById(R.id.overflow);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext,"clicked="+ getPosition(),Toast.LENGTH_SHORT).show();
+
+                }
+            });
         }
     }
 
@@ -58,7 +66,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         Item item = itemList.get(position);
         holder.name.setText(item.getName());
         holder.image.setImageResource(itemList.get(position).getPhotoId());
-
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override

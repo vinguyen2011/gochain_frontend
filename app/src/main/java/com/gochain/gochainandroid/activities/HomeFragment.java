@@ -52,6 +52,7 @@ public class HomeFragment extends Fragment {
 
         prepareItems();
 
+        // click on fab button open the scan screen
         fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
