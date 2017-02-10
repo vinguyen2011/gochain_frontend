@@ -7,18 +7,20 @@ package com.gochain.gochainandroid.model;
 public class PollDetails {
     private String title;
     private String description;
-    private float cost;
+    private double cost;
+    private double status;
     private int photoId;
-    private float percentage;
+    private double percentage;
     public PollDetails() {
     }
 
-    public PollDetails(String title, String description, float cost, int photoId, float percentage) {
+    public PollDetails(String title, String description, double cost, int photoId, double status, double percentage) {
         this.title = title;
         this.description = description;
         this.cost = cost;
         this.photoId = photoId;
         this.percentage = percentage;
+        this.status = status;
     }
 
     public String getTitle() {
@@ -37,12 +39,8 @@ public class PollDetails {
         this.description = description;
     }
 
-    public float getCost() {
+    public double getCost() {
         return cost;
-    }
-
-    public void setCost(float cost) {
-        this.cost = cost;
     }
 
     public int getPhotoId() {
@@ -51,5 +49,25 @@ public class PollDetails {
 
     public void setPhotoId(int photoId) {
         this.photoId = photoId;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
+
+    public double getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(double percentage) {
+        this.percentage = percentage;
+    }
+
+    public double getStatus() {
+        return status;
+    }
+
+    public void setStatus(double status) {
+        this.status = status;
     }
 }

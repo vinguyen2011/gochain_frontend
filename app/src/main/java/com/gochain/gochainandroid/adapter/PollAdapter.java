@@ -62,7 +62,7 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.MyViewHolder> 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_card, parent, false);
+                .inflate(R.layout.poll_card, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -71,7 +71,7 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.MyViewHolder> 
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         Poll item = itemList.get(position);
         holder.name.setText(item.getName());
-        holder.image.setImageResource(itemList.get(position).getPhotoId());
+//        holder.image.setImageResource(itemList.get(position).getPhotoId());
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,29 +89,9 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.MyViewHolder> 
         PopupMenu popup = new PopupMenu(mContext, view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_item, popup.getMenu());
-        popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
         popup.show();
     }
 
-    /**
-     * Click listener for popup menu items
-     */
-    class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
-
-        public MyMenuItemClickListener() {
-        }
-
-        @Override
-        public boolean onMenuItemClick(MenuItem menuItem) {
-            switch (menuItem.getItemId()) {
-                case R.id.action_view:
-                    Toast.makeText(mContext, "View", Toast.LENGTH_SHORT).show();
-                    return true;
-                default:
-            }
-            return false;
-        }
-    }
 
     @Override
     public int getItemCount() {

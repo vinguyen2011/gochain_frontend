@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.gochain.gochainandroid.R;
 import com.gochain.gochainandroid.adapter.PollAdapter;
 import com.gochain.gochainandroid.model.Poll;
+import com.gochain.gochainandroid.model.PollDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,33 +67,25 @@ public class HomeFragment extends Fragment {
         int[] photos = new int[]{
                 R.drawable.album1,
                 R.drawable.album2,
-                R.drawable.album3,
-                R.drawable.album4,
-                R.drawable.album5,
-                R.drawable.album6,
-                R.drawable.album7,
-                R.drawable.album8,
-                R.drawable.album9,
-                R.drawable.album10,
-                R.drawable.album11};
+                R.drawable.album3};
+        String[] name = new String[]{
+                "Park",
+                "Swimming pool",
+                "Gym"};
 
-        Poll a = new Poll("Car 1", photos[0]);
+        List<PollDetails> details = new ArrayList<>();
+        for (int i = 0; i <= 3; i++) {
+            PollDetails detail = new PollDetails(name[i],
+                    "Description Description Description Description Description Description Description",
+                    123.4, photos[i], 123.4, 23.6);
+            details.add(detail);
+        }
+
+        Poll a = new Poll(name[0], details);
         itemList.add(a);
 
-        Poll b = new Poll("Car 2", photos[1]);
-        itemList.add(b);
+        itemList.add(a);
 
-        Poll c = new Poll("Car 3", photos[2]);
-        itemList.add(c);
-
-        Poll d = new Poll("Car 4", photos[3]);
-        itemList.add(d);
-
-        Poll e = new Poll("Car 5", photos[4]);
-        itemList.add(e);
-
-        Poll f = new Poll("Car 6", photos[5]);
-        itemList.add(f);
         adapter.notifyDataSetChanged();
     }
 }
