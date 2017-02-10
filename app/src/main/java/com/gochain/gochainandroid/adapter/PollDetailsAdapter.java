@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.gochain.gochainandroid.R;
 import com.gochain.gochainandroid.activities.DetailsFragment;
-import com.gochain.gochainandroid.model.Item;
+import com.gochain.gochainandroid.model.Poll;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ import java.util.List;
 
 public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.MyViewHolder> {
     private Context mContext;
-    private List<Item> itemList;
+    private List<Poll> itemList;
     private Fragment parent;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -53,7 +53,7 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
     }
 
 
-    public PollDetailsAdapter(Fragment parent, List<Item> itemList) {
+    public PollDetailsAdapter(Fragment parent, List<Poll> itemList) {
         this.parent = parent;
         this.mContext = parent.getContext();
         this.itemList = itemList;
@@ -69,7 +69,7 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        Item item = itemList.get(position);
+        Poll item = itemList.get(position);
         holder.name.setText(item.getName());
         holder.image.setImageResource(itemList.get(position).getPhotoId());
 

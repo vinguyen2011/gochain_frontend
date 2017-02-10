@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.gochain.gochainandroid.R;
 import com.gochain.gochainandroid.adapter.PollAdapter;
-import com.gochain.gochainandroid.model.Item;
+import com.gochain.gochainandroid.model.Poll;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private PollAdapter adapter;
-    private List<Item> itemList;
+    private List<Poll> itemList;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -76,22 +76,22 @@ public class HomeFragment extends Fragment {
                 R.drawable.album10,
                 R.drawable.album11};
 
-        Item a = new Item("Car 1", photos[0]);
+        Poll a = new Poll("Car 1", photos[0]);
         itemList.add(a);
 
-        Item b = new Item("Car 2", photos[1]);
+        Poll b = new Poll("Car 2", photos[1]);
         itemList.add(b);
 
-        Item c = new Item("Car 3", photos[2]);
+        Poll c = new Poll("Car 3", photos[2]);
         itemList.add(c);
 
-        Item d = new Item("Car 4", photos[3]);
+        Poll d = new Poll("Car 4", photos[3]);
         itemList.add(d);
 
-        Item e = new Item("Car 5", photos[4]);
+        Poll e = new Poll("Car 5", photos[4]);
         itemList.add(e);
 
-        Item f = new Item("Car 6", photos[5]);
+        Poll f = new Poll("Car 6", photos[5]);
         itemList.add(f);
         adapter.notifyDataSetChanged();
     }
