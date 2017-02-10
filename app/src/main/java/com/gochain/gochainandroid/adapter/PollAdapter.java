@@ -1,6 +1,7 @@
 package com.gochain.gochainandroid.adapter;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,19 +14,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gochain.gochainandroid.R;
+import com.gochain.gochainandroid.activities.DetailsFragment;
 import com.gochain.gochainandroid.model.Item;
-import com.gochain.gochainandroid.model.NavDrawerItem;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by vinguyen on 07/02/2017.
  */
 
-public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder> {
+public class PollAdapter extends RecyclerView.Adapter<PollAdapter.MyViewHolder> {
     private Context mContext;
     private List<Item> itemList;
+    private Fragment parent;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
@@ -40,7 +41,11 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext,"clicked="+ getPosition(),Toast.LENGTH_SHORT).show();
+                    Fragment fragment = new DetailsFragment();
+                    parent.getFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.container_body, fragment)
+                            .commit();
 
                 }
             });
@@ -48,8 +53,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
     }
 
 
-    public ItemsAdapter(Context mContext, List<Item> itemList) {
-        this.mContext = mContext;
+    public PollAdapter(Fragment parent, List<Item> itemList) {
+        this.parent = parent;
+        this.mContext = parent.getContext();
         this.itemList = itemList;
     }
 

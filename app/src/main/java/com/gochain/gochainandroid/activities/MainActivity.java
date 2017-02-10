@@ -80,10 +80,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 fragment = new HomeFragment();
                 title = getString(R.string.title_home);
                 break;
-            case 1:
-                fragment = new ScanFragment();
-                title = getString(R.string.title_scan);
-                break;
             default:
                 break;
         }

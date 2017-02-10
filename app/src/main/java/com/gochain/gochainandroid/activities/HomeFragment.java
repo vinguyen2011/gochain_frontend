@@ -2,10 +2,7 @@ package com.gochain.gochainandroid.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gochain.gochainandroid.R;
-import com.gochain.gochainandroid.adapter.ItemsAdapter;
+import com.gochain.gochainandroid.adapter.PollAdapter;
 import com.gochain.gochainandroid.model.Item;
 
 import java.util.ArrayList;
@@ -22,9 +19,8 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
-    private ItemsAdapter adapter;
+    private PollAdapter adapter;
     private List<Item> itemList;
-    private FloatingActionButton fab;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -43,7 +39,7 @@ public class HomeFragment extends Fragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
 
         itemList = new ArrayList<>();
-        adapter = new ItemsAdapter(this.getContext(), itemList);
+        adapter = new PollAdapter(this, itemList);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -51,19 +47,6 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         prepareItems();
-
-        // click on fab button open the scan screen
-        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment fragment = new ScanFragment();
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.container_body, fragment)
-                        .commit();
-            }
-        });
 
         // Inflate the layout for this fragment
         return rootView;
