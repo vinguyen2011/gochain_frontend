@@ -112,6 +112,13 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.MyViewHolder> 
         popup.show();
     }
 
+    public void add(List<CampaignVo> itemList) {
+        this.itemList.addAll(itemList);
+    }
+
+    public void clear() {
+        this.itemList.clear();
+    }
 
     @Override
     public int getItemCount() {

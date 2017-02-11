@@ -13,11 +13,12 @@ public class DateConverter {
     public DateConverter() {}
 
     public long getDaysTillExpireDate(long timestamp) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(timestamp);
 
-        return TimeUnit.DAYS.convert(timestamp - Calendar.getInstance().get(Calendar.MILLISECOND), TimeUnit.MILLISECONDS);
+        Date date = new Date();
+        long daysInMillis = timestamp - date.getTime();
 
+        //86400000 is milli seconds in a day
+        return daysInMillis / 86400000;
     }
 
 }

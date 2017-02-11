@@ -19,11 +19,11 @@ public class ProjectFlatToVoConverter {
     public List<CampaignVo> convertProjectFlatToCampaignContainer(ProjectFlatVo[] projectFlatVos) {
         List<CampaignVo> campaignVos = new ArrayList<>();
         for (ProjectFlatVo projectFlatVo: projectFlatVos) {
-            for (String tag: projectFlatVo.getTags()) {
-                CampaignVo existCampaign = null;
+            CampaignVo existCampaign = null;
+            if (projectFlatVo.getTags().size() > 0) {
 
                 for (CampaignVo campaignVo: campaignVos) {
-                    if (campaignVo.getCampaignId().equals(tag)) {
+                    if (campaignVo.getCampaignId().equals(projectFlatVo.getTags().get(0))) {
                         existCampaign = campaignVo;
                         break;
                     }
@@ -31,10 +31,15 @@ public class ProjectFlatToVoConverter {
 
                 if (existCampaign == null) {
                     existCampaign = new CampaignVo();
+                    existCampaign.setExpiryDate(projectFlatVo.getExpiryDate());
+                    existCampaign.setCampaignId(projectFlatVo.getTags().get(0));
+                    existCampaign.setVoteRestriction(projectFlatVo.getVoteRestriction());
                     existCampaign.setProjectVos(new ArrayList<ProjectVo>());
                 }
                 existCampaign.getProjectVos().add(produceProjectVoFromFlat(projectFlatVo));
             }
+
+            campaignVos.add(existCampaign);
         }
         return campaignVos;
     }

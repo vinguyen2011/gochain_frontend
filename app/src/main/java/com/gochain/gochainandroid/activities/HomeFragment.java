@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 
 import com.gochain.gochainandroid.R;
 import com.gochain.gochainandroid.adapter.PollAdapter;
-import com.gochain.gochainandroid.rest.GoChainRestService;
 import com.gochain.gochainandroid.services.GoChainService;
 import com.gochain.gochainandroid.vo.CampaignVo;
 
@@ -25,12 +24,14 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private PollAdapter adapter;
     private List<CampaignVo> itemList;
+    View rootView;
 
-    private LoginActivity.UserLoginTask mRestTask = null;
+    private RestTask mRestTask = null;
+
+    private static String TAG = "HomeFragment";
 
     public HomeFragment() {
-        RestTask restTask = new RestTask();
-        restTask.execute();
+        mRestTask = new RestTask();
     }
 
     @Override
@@ -42,24 +43,25 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
+        itemList = new ArrayList<>();
+        displayItems();
+
+        mRestTask.execute();
+        // Inflate the layout for this fragment
+        return rootView;
+    }
+
+    private void displayItems() {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-
-        // fetch item from blockchain
-        itemList = new GoChainService().getCampaigns();
-        Log.i("Campaigns", itemList.toString());
-
         adapter = new PollAdapter(this, itemList);
-
+        Log.i(TAG, "itemList size: " + itemList.size());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-
-        // Inflate the layout for this fragment
-        return rootView;
     }
 
     @Override
@@ -86,14 +88,21 @@ public class HomeFragment extends Fragment {
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
-            goChainService.getCampaigns();
-            return  true;
+            itemList = goChainService.getCampaigns();
+            Log.i("Campaigns", itemList.toString());
+            return true;
         }
+
+
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            mRestTask = null;
-//            showProgress(false);
+            if (success) {
+                Log.i(TAG, "Refreshing adapter with size: " + itemList.size());
+                adapter.clear();
+                adapter.add(itemList);
+                adapter.notifyDataSetChanged();
+            }
         }
 
         @Override
