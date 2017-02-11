@@ -7,14 +7,18 @@ import java.util.List;
  */
 public class CampaignVo {
     private String campaignId;
+    private String voteRestriction;
+    private Long expiryDate;
     private List<ProjectVo> projectVos;
 
     public CampaignVo() {
         super();
     }
 
-    public CampaignVo(String campaignId, List<ProjectVo> projectVos) {
+    public CampaignVo(String campaignId, String voteRestriction, Long expiryDate, List<ProjectVo> projectVos) {
         this.campaignId = campaignId;
+        this.voteRestriction = voteRestriction;
+        this.expiryDate = expiryDate;
         this.projectVos = projectVos;
     }
 
@@ -32,5 +36,21 @@ public class CampaignVo {
 
     public void setProjectVos(List<ProjectVo> projectVos) {
         this.projectVos = projectVos;
+    }
+
+    public String getVoteRestriction() {
+        return voteRestriction;
+    }
+
+    public void setVoteRestriction(String voteRestriction) {
+        this.voteRestriction = voteRestriction;
+    }
+
+    public Long getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(Long expiryDate) {
+        this.expiryDate = expiryDate;
     }
 }

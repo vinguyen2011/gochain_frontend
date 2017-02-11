@@ -5,5 +5,5 @@ package com.gochain.gochainandroid.rest;
  */
 
 public abstract class AbstractRestService {
-    protected static final String BASE_URL = "http://192.168.99.1:8080";
+    protected static final String BASE_URL = "http://10.20.100.255:8080";
 }

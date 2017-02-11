@@ -2,15 +2,18 @@ package com.gochain.gochainandroid.rest;
 
 import android.util.Log;
 
+import com.gochain.gochainandroid.vo.AuthenticatedUserVo;
 import com.gochain.gochainandroid.vo.CampaignVo;
 import com.gochain.gochainandroid.vo.CampaignVoContainer;
 import com.gochain.gochainandroid.vo.ProjectVo;
+import com.gochain.gochainandroid.vo.UserVo;
 import com.gochain.gochainandroid.vo.VoteVo;
 
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,8 +21,21 @@ import java.util.List;
  */
 
 public class GoChainRestService extends AbstractRestService {
+    private static final String AUTHENTICATE_USER_URL = BASE_URL + "/auth/login";
     private static final String VOTE_URL = BASE_URL + "/vote";
     private static final String FETCH_CAMPAIGNS_URL = BASE_URL + "/fetch_campaigns";
+
+    public AuthenticatedUserVo authenticateUser(UserVo userVo) {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
+
+        try {
+            return restTemplate.postForObject(AUTHENTICATE_USER_URL, userVo, AuthenticatedUserVo.class);
+        } catch (Throwable t) {
+            Log.e(this.getClass().getName(), "Error trying to authenticate user with server", t);
+        }
+        return null;
+    }
 
     public List<CampaignVo> fetchCampaigns() {
         RestTemplate restTemplate = new RestTemplate();
@@ -46,15 +62,15 @@ public class GoChainRestService extends AbstractRestService {
     }
 
     public Boolean sendDummyVote() {
-        ProjectVo projectVo1 = new ProjectVo("1", "testProjectName1", 1000, 70);
-        ProjectVo projectVo2 = new ProjectVo("2", "testProjectName2", 1000, 20);
-        ProjectVo projectVo3 = new ProjectVo("3", "testProjectName3", 1000, 10);
+        ProjectVo projectVo1 = new ProjectVo("1", "testProjectName1", "Amsterdam", "test description 1", 1000, 70);
+        ProjectVo projectVo2 = new ProjectVo("2", "testProjectName2", "Groningen", "test description 2", 1000, 20);
+        ProjectVo projectVo3 = new ProjectVo("3", "testProjectName3", "Roterdam", "test description 3", 1000, 10);
         List<ProjectVo> projectVos = new ArrayList<>(3);
         projectVos.add(projectVo1);
         projectVos.add(projectVo2);
         projectVos.add(projectVo3);
 
-        CampaignVo campaignVo = new CampaignVo("campaign1", projectVos);
+        CampaignVo campaignVo = new CampaignVo("campaign1", "none", new Date().getTime(), projectVos);
         VoteVo voteVo = new VoteVo("bradDigiD", campaignVo);
         return this.sendVote(voteVo);
     }

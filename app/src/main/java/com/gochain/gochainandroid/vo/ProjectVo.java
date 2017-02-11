@@ -7,19 +7,23 @@ import java.math.BigDecimal;
  */
 public class ProjectVo {
     private String projectId;
-    private String projectName;
-    private int estimatedCost;
-    private int voteValue;
+    private String name;
+    private String location;
+    private String description;
+    private int cost;
+    private int costCovered;
 
     public ProjectVo() {
         super();
     }
 
-    public ProjectVo(String projectId, String projectName, int estimatedCost, int voteValue) {
+    public ProjectVo(String projectId, String name, String location, String description, int cost, int costCovered) {
         this.projectId = projectId;
-        this.projectName = projectName;
-        this.estimatedCost = estimatedCost;
-        this.voteValue = voteValue;
+        this.name = name;
+        this.location = location;
+        this.description = description;
+        this.cost = cost;
+        this.costCovered = costCovered;
     }
 
     public String getProjectId() {
@@ -30,27 +34,43 @@ public class ProjectVo {
         this.projectId = projectId;
     }
 
-    public String getProjectName() {
-        return projectName;
+    public String getName() {
+        return name;
     }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getEstimatedCost() {
-        return estimatedCost;
+    public String getLocation() {
+        return location;
     }
 
-    public void setEstimatedCost(int estimatedCost) {
-        this.estimatedCost = estimatedCost;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public int getVoteValue() {
-        return voteValue;
+    public String getDescription() {
+        return description;
     }
 
-    public void setVoteValue(int voteValue) {
-        this.voteValue = voteValue;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public int getCostCovered() {
+        return costCovered;
+    }
+
+    public void setCostCovered(int costCovered) {
+        this.costCovered = costCovered;
     }
 }
