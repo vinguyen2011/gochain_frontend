@@ -3,6 +3,7 @@ package com.gochain.gochainandroid.rest;
 import android.util.Log;
 
 import com.gochain.gochainandroid.vo.CampaignVo;
+import com.gochain.gochainandroid.vo.CampaignVoContainer;
 import com.gochain.gochainandroid.vo.ProjectVo;
 import com.gochain.gochainandroid.vo.VoteVo;
 
@@ -16,8 +17,21 @@ import java.util.List;
  * Created by Brad on 10/02/2017.
  */
 
-public class VoteRestService extends AbstractRestService {
+public class GoChainRestService extends AbstractRestService {
     private static final String VOTE_URL = BASE_URL + "/vote";
+    private static final String FETCH_CAMPAIGNS_URL = BASE_URL + "/fetch_campaigns";
+
+    public List<CampaignVo> fetchCampaigns() {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
+        try {
+            CampaignVoContainer campaignVos = restTemplate.getForObject(VOTE_URL, CampaignVoContainer.class);
+            return campaignVos.getCampaignVos();
+        } catch (Throwable t) {
+            Log.e(this.getClass().getName(), "Error trying to authenticate user with server", t);
+        }
+        return null;
+    }
 
     public Boolean sendVote(VoteVo voteVo) {
         RestTemplate restTemplate = new RestTemplate();
