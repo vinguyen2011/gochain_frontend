@@ -1,6 +1,7 @@
 package com.gochain.gochainandroid.activities;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,15 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gochain.gochainandroid.R;
-import com.gochain.gochainandroid.SessionValueHelper;
 import com.gochain.gochainandroid.adapter.PollAdapter;
-import com.gochain.gochainandroid.model.Poll;
-import com.gochain.gochainandroid.model.PollDetails;
 import com.gochain.gochainandroid.rest.GoChainRestService;
-import com.gochain.gochainandroid.vo.AuthenticatedUserVo;
+import com.gochain.gochainandroid.services.GoChainService;
 import com.gochain.gochainandroid.vo.CampaignVo;
-import com.gochain.gochainandroid.vo.CampaignVoContainer;
-import com.gochain.gochainandroid.vo.UserVo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,17 +26,16 @@ public class HomeFragment extends Fragment {
     private PollAdapter adapter;
     private List<CampaignVo> itemList;
 
-    private GoChainRestService goChainRestService;
+    private LoginActivity.UserLoginTask mRestTask = null;
 
     public HomeFragment() {
-        goChainRestService = new GoChainRestService();
-        goChainRestService.fetchCampaigns();
+        RestTask restTask = new RestTask();
+        restTask.execute();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        goChainRestService = new GoChainRestService();
 
     }
 
@@ -52,7 +47,7 @@ public class HomeFragment extends Fragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
 
         // fetch item from blockchain
-        itemList = new ArrayList<CampaignVo>();//goChainRestService.fetchCampaigns();
+        itemList = new ArrayList<CampaignVo>();//goChainService.fetchCampaigns();
         Log.i("Campaigns", itemList.toString());
 
         adapter = new PollAdapter(this, itemList);
@@ -77,4 +72,33 @@ public class HomeFragment extends Fragment {
         super.onDetach();
     }
 
+    /**
+     * Represents an asynchronous login/registration task used to authenticate
+     * the user.
+     */
+    public class RestTask extends AsyncTask<Void, Void, Boolean> {
+        private GoChainService goChainService;
+
+        RestTask() {
+            goChainService = new GoChainService();
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+            goChainService.getCampaigns();
+            return  true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mRestTask = null;
+//            showProgress(false);
+        }
+
+        @Override
+        protected void onCancelled() {
+            mRestTask = null;
+        }
+    }
 }

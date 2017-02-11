@@ -60,17 +60,17 @@ public class GoChainRestService extends AbstractRestService {
         return headers;
     }
 
-    public List<ProjectFlatVo> fetchCampaigns() {
+    public ProjectFlatVo[] fetchCampaigns() {
         HttpEntity<String> entity = new HttpEntity<>(this.getHeaders());
 
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
         try {
 //            CampaignVoContainer campaignVos = restTemplate.getForObject(VOTE_URL, CampaignVoContainer.class)
-            ResponseEntity<ProjectFlatVoContainer> responseEntity = restTemplate.exchange(VOTER_USER_URL, HttpMethod.GET, entity, ProjectFlatVoContainer.class, SessionValueHelper.getSessionUser().getUser().getUsername());
-            ProjectFlatVoContainer projectFlatVoContainer = responseEntity.getBody();
-            Log.i("nnkn", "got back: " + projectFlatVoContainer);
-            return projectFlatVoContainer.getProjectFlatVos();
+            ResponseEntity<ProjectFlatVo[]> responseEntity = restTemplate.exchange(VOTER_USER_URL, HttpMethod.GET, entity, ProjectFlatVo[].class, SessionValueHelper.getSessionUser().getUser().getUsername());
+            ProjectFlatVo[] projectFlatVos = responseEntity.getBody();
+            Log.i("nnkn", "got back: " + projectFlatVos.length);
+            return projectFlatVos;
         } catch (Throwable t) {
             Log.e(this.getClass().getName(), "Error trying to authenticate user with server", t);
         }
