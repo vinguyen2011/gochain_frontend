@@ -81,22 +81,46 @@ public class HomeFragment extends Fragment {
 
     private void prepareItems() {
         int[] photos = new int[]{
-                R.drawable.album1,
-                R.drawable.album2,
-                R.drawable.album3,
-                R.drawable.album4,
-                R.drawable.album5,
-                R.drawable.album6,
-                R.drawable.album7,
-                R.drawable.album8,
-                R.drawable.album9,
-                R.drawable.album10,
-                R.drawable.album11};
 
-        Item a = new Item("Car 1", photos[0]);
+                R.drawable.publicparksmall,
+                R.drawable.swimmingpoolsmall,
+                R.drawable.youthcentersmall,
+                R.drawable.amuseparksmall,
+                R.drawable.footballfieldsmall};
+        String[] name = new String[]{
+                "Park",
+                "Swimming pool",
+                "Youth center",
+                "Amusement park",
+                "Football field"};
+
+        double[] status = new double[] {
+                112.0,
+                13,
+                23,
+                0,
+                0
+        };
+        PollDetails detail;
+        List<PollDetails> details = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            detail = new PollDetails(name[i],
+                    "Description Description Description Description Description Description Description",
+                    123.4, photos[i], status[i], 23.6);
+            details.add(detail);
+        }
+
+        Poll a = new Poll("Social Projects Q1 2017", photos[0], details, 30);
         itemList.add(a);
 
-        Item b = new Item("Car 2", photos[1]);
+        Poll b = new Poll("Education projects Q1 2017", photos[1], details, 90);
+        itemList.add(b);
+        itemList.add(b);
+        itemList.add(b);
+        itemList.add(b);
+        itemList.add(b);
+        itemList.add(b);
+
         itemList.add(b);
 
         Item c = new Item("Car 3", photos[2]);

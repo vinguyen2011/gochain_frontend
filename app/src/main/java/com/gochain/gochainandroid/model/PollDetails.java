@@ -15,11 +15,11 @@ public class PollDetails implements Parcelable {
     private double status;
     private int photoId;
     private double percentage;
-    private SeekBar bar;
     public PollDetails() {
     }
 
-    public PollDetails(String title, String description, double cost, int photoId, double status, double percentage) {
+    public PollDetails(String title, String description, double cost, int photoId,
+                       double status, double percentage) {
         this.title = title;
         this.description = description;
         this.cost = cost;
@@ -112,11 +112,4 @@ public class PollDetails implements Parcelable {
         parcel.writeDouble(percentage);
     }
 
-    public SeekBar getBar() {
-        return bar;
-    }
-
-    public void setBar(SeekBar bar) {
-        this.bar = bar;
-    }
 }

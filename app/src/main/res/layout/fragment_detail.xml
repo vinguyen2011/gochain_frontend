@@ -3,32 +3,63 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
+    android:weightSum="10"
     tools:context="com.gochain.gochainandroid.activities.DetailsFragment">
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:scrollbars="vertical" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
+        android:layout_height="0dp"
+        android:id="@+id/top"
+        android:layout_weight="1">
 
-        <Button
-            android:text="Cancel"
-            android:layout_width="wrap_content"
+        <TextView
+            android:text="Tets"
+            android:paddingTop="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textSize="18dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/cancelBtn"
-            android:background="@color/colorAccent"
-            android:textColor="@android:color/white"
-            android:layout_margin="8dp"/>
+            android:id="@+id/title"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:text="TextView"
+            android:padding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/daysRemained"
+            android:layout_below="@+id/title"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:scrollbars="none"
+        android:id="@+id/scroll_view"
+        android:layout_below="@+id/top"
+        android:layout_weight="8">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:scrollbars="vertical"/>
+    </ScrollView>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:layout_below="@+id/scroll_view"
+        android:layout_gravity="bottom"
+        android:layout_weight="1">
 
         <Button
             android:text="Submit"
@@ -36,7 +67,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/submitBtn"
             android:background="@color/colorPrimary"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white"
+            android:layout_margin="8dp"/>
     </LinearLayout>
 
 </LinearLayout>
