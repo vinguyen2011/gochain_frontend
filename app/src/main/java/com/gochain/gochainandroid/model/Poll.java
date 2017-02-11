@@ -8,13 +8,15 @@ import java.util.List;
 
 public class Poll {
     private String name;
+    private int image;
     private List<PollDetails> pollDetails;
 
     public Poll() {
     }
 
-    public Poll(String name, List<PollDetails> pollDetails) {
+    public Poll(String name, int image, List<PollDetails> pollDetails) {
         this.name = name;
+        this.image = image;
         this.pollDetails = pollDetails;
     }
 
@@ -28,6 +30,14 @@ public class Poll {
 
     public List<PollDetails> getPollDetails() {
         return pollDetails;
+    }
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
     }
 
     public void setPollDetails(List<PollDetails> pollDetails) {

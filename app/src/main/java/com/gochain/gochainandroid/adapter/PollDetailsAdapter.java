@@ -24,6 +24,9 @@ import com.gochain.gochainandroid.activities.DetailsFragment;
 import com.gochain.gochainandroid.model.Poll;
 import com.gochain.gochainandroid.model.PollDetails;
 
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,24 +37,20 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
     private Context mContext;
     private List<PollDetails> itemList;
     private Fragment parent;
-    private SeekBar bar;
     private TextView percentage;
-    private ImageButton infoBtn;
     private PollDetails item;
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, status;
-        public ImageView image;
-
+        private DiscreteSeekBar bar;
+        private ImageButton infoBtn;
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             status = (TextView) view.findViewById(R.id.status);
-            bar = (SeekBar) view.findViewById(R.id.voteBar);
+            bar = (DiscreteSeekBar) view.findViewById(R.id.voteBar);
             percentage = (TextView) view.findViewById(R.id.percentage);
             infoBtn = (ImageButton) view.findViewById(R.id.infoBtn);
-
-
-
         }
     }
 
@@ -71,60 +70,31 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         item = itemList.get(position);
+
         holder.title.setText(item.getTitle());
         holder.status.setText(item.getStatus() + " / " + item.getCost() + "$");
-        holder.image.setImageResource(itemList.get(position).getPhotoId());
-        holder.status.setText(item.getStatus() + " / " + item.getCost() + "$");
-
-        bar.setMax(100);
-        bar.setProgress(0);
-        bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress,
-                                          boolean fromUser) {
-                RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(
-                        RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT);
-                p.addRule(RelativeLayout.ABOVE, seekBar.getId());
-                Rect thumbRect = bar.getThumb().getBounds();
-                p.setMargins(
-                        thumbRect.centerX(),0, 0, 0);
-                percentage.setLayoutParams(p);
-                percentage.setText(String.valueOf(progress) + " %");
-            }
-        });
 
         // add button listener
-        infoBtn.setOnClickListener(new View.OnClickListener() {
+        holder.infoBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
+                PollDetails itemA = itemList.get(position);
 
                 // custom dialog
                 final Dialog dialog = new Dialog(mContext);
                 dialog.setContentView(R.layout.dialog_detail);
                 TextView title = (TextView) dialog.findViewById(R.id.title);
-                title.setText(item.getTitle());
+                title.setText(itemA.getTitle());
                 TextView description = (TextView) dialog.findViewById(R.id.description);
-                title.setText(item.getDescription());
+                description.setText(itemA.getDescription());
                 TextView cost = (TextView) dialog.findViewById(R.id.cost);
-                title.setText(item.getCost() + "$");
+                cost.setText(itemA.getCost() + "$");
 
                 ImageView image = (ImageView) dialog.findViewById(R.id.image);
-                image.setImageResource(item.getPhotoId());
+                image.setImageResource(itemA.getPhotoId());
 
                 Button dialogButton = (Button) dialog.findViewById(R.id.closeBtn);
                 // if button is clicked, close the custom dialog
@@ -156,4 +126,5 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
     public int getItemCount() {
         return itemList.size();
     }
+
 }

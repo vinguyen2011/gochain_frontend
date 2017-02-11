@@ -39,7 +39,7 @@
         android:layout_below="@+id/description"/>
 
     <Button
-        android:text="Button"
+        android:text="Close"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:id="@+id/closeBtn"

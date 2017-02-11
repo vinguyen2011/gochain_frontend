@@ -72,19 +72,26 @@ public class HomeFragment extends Fragment {
                 "Park",
                 "Swimming pool",
                 "Gym"};
-
+        PollDetails detail;
         List<PollDetails> details = new ArrayList<>();
-        for (int i = 0; i <= 3; i++) {
-            PollDetails detail = new PollDetails(name[i],
+        for (int i = 0; i < 3; i++) {
+            detail = new PollDetails(name[i],
                     "Description Description Description Description Description Description Description",
                     123.4, photos[i], 123.4, 23.6);
             details.add(detail);
         }
 
-        Poll a = new Poll(name[0], details);
+        Poll a = new Poll("Social Projects for Q1 2017", photos[0], details);
         itemList.add(a);
 
-        itemList.add(a);
+        Poll b = new Poll("Education project for Q1 2017", photos[1], details);
+        itemList.add(b);
+        itemList.add(b);
+        itemList.add(b);
+        itemList.add(b);
+        itemList.add(b);
+        itemList.add(b);
+        itemList.add(b);
 
         adapter.notifyDataSetChanged();
     }

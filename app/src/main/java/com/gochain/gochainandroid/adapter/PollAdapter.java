@@ -1,6 +1,7 @@
 package com.gochain.gochainandroid.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +17,9 @@ import android.widget.Toast;
 import com.gochain.gochainandroid.R;
 import com.gochain.gochainandroid.activities.DetailsFragment;
 import com.gochain.gochainandroid.model.Poll;
+import com.gochain.gochainandroid.model.PollDetails;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,7 +44,10 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.MyViewHolder> 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Fragment fragment = new DetailsFragment();
+                    DetailsFragment fragment = new DetailsFragment();
+                    int i = getPosition();
+                    fragment.setCustomObject(itemList.get(i).getPollDetails());
+
                     parent.getFragmentManager()
                             .beginTransaction()
                             .replace(R.id.container_body, fragment)
@@ -71,7 +77,7 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.MyViewHolder> 
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         Poll item = itemList.get(position);
         holder.name.setText(item.getName());
-//        holder.image.setImageResource(itemList.get(position).getPhotoId());
+        holder.image.setImageResource(item.getImage());
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override

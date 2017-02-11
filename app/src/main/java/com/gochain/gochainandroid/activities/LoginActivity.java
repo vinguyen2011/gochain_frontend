@@ -30,28 +30,26 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
-//        setContentView(R.layout.activity_login);
-//
-//        inputLayoutEmail = (TextInputLayout) findViewById(R.id.input_layout_email);
-//        inputLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
-//        inputEmail = (EditText) findViewById(R.id.input_email);
-//        inputPassword = (EditText) findViewById(R.id.input_password);
-//        btnSignUp = (Button) findViewById(R.id.btn_signup);
-//
-//        inputEmail.addTextChangedListener(new MyTextWatcher(inputEmail));
-//        inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));
-//
-//        progressBar = (ProgressBar) findViewById(R.id.login_progress);
-//        loginForm = (LinearLayout) findViewById(R.id.login_form);
-//
-//        btnSignUp.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                submitForm();
-//            }
-//        });
+        setContentView(R.layout.activity_login);
+
+        inputLayoutEmail = (TextInputLayout) findViewById(R.id.input_layout_email);
+        inputLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
+        inputEmail = (EditText) findViewById(R.id.input_email);
+        inputPassword = (EditText) findViewById(R.id.input_password);
+        btnSignUp = (Button) findViewById(R.id.btn_signup);
+
+        inputEmail.addTextChangedListener(new MyTextWatcher(inputEmail));
+        inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));
+
+        progressBar = (ProgressBar) findViewById(R.id.login_progress);
+        loginForm = (LinearLayout) findViewById(R.id.login_form);
+
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                submitForm();
+            }
+        });
     }
 
     /**

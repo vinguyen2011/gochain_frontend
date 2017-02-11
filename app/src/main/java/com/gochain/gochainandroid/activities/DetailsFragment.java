@@ -14,7 +14,6 @@ import com.gochain.gochainandroid.R;
 import com.gochain.gochainandroid.adapter.PollDetailsAdapter;
 import com.gochain.gochainandroid.model.PollDetails;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DetailsFragment extends Fragment {
@@ -37,8 +36,6 @@ public class DetailsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-
-        itemList = new ArrayList<>();
         adapter = new PollDetailsAdapter(this, itemList);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this.getContext());
@@ -59,5 +56,8 @@ public class DetailsFragment extends Fragment {
         super.onDetach();
     }
 
+    public void setCustomObject(List<PollDetails> pollDetails){
+        this.itemList = pollDetails;
+    }
 
 }
