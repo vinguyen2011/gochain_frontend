@@ -7,13 +7,13 @@ xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     tools:context="com.gochain.gochainandroid.activities.HomeFragment">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_scan_icon" />
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--android:layout_margin="@dimen/fab_margin"-->
+        <!--android:src="@drawable/ic_scan_icon" />-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"

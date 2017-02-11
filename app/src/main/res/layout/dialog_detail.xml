@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/park"
+        android:id="@+id/image"
+        android:paddingBottom="16dp"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:id="@+id/title"
+        android:paddingBottom="8dp"
+        android:layout_below="@+id/image" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/description"
+        android:paddingBottom="8dp"
+        android:layout_below="@+id/title"/>
+
+    <TextView
+        android:text="Cost: 234 $"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cost"
+        android:layout_below="@+id/description"/>
+
+    <Button
+        android:text="Close"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/closeBtn"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="16dp"
+        android:textColor="@android:color/white"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/cost"/>
+
+</RelativeLayout>
