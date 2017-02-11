@@ -20,6 +20,14 @@ public class UserVo {
         return username;
     }
 
+    @Override
+    public String toString() {
+        return "UserVo{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }

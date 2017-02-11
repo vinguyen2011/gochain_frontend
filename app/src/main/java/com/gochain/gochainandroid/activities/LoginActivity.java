@@ -1,18 +1,12 @@
 package com.gochain.gochainandroid.activities;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -213,7 +207,7 @@ public class LoginActivity extends AppCompatActivity {
             AuthenticatedUserVo authenticatedUserVo = goChainRestService.authenticateUser(new UserVo(params[0], params[1]));
             if (authenticatedUserVo != null && authenticatedUserVo.getAuthenticated()) {
                 Log.i("Login", authenticatedUserVo.toString());
-                SessionValueHelper.setSessionToken(authenticatedUserVo.getToken());
+                SessionValueHelper.setSessionUser(authenticatedUserVo);
                 return true;
             }
 

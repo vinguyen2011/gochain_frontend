@@ -114,4 +114,20 @@ public class ProjectFlatVo {
     public void setTags(List<String> tags) {
         this.tags = tags;
     }
+
+    @Override
+    public String toString() {
+        return "ProjectFlatVo{" +
+                "projectId='" + projectId + '\'' +
+                ", name='" + name + '\'' +
+                ", location='" + location + '\'' +
+                ", description='" + description + '\'' +
+                ", tags=" + tags +
+                ", cost=" + cost +
+                ", costCovered=" + costCovered +
+                ", campaignId='" + campaignId + '\'' +
+                ", voteRestriction='" + voteRestriction + '\'' +
+                ", expiryDate=" + expiryDate +
+                '}';
+    }
 }

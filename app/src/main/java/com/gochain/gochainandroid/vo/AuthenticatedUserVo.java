@@ -9,16 +9,16 @@ public class AuthenticatedUserVo {
     private Boolean authenticated;
     private String message;
     private String token;
-    private UserVo userVo;
+    private UserVo user;
 
     public AuthenticatedUserVo() {
     }
 
-    public AuthenticatedUserVo(Boolean authenticated, String message, String token, UserVo userVo) {
+    public AuthenticatedUserVo(Boolean authenticated, String message, String token, UserVo user) {
         this.authenticated = authenticated;
         this.message = message;
         this.token = token;
-        this.userVo = userVo;
+        this.user = user;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class AuthenticatedUserVo {
                 "authenticated=" + authenticated +
                 ", message='" + message + '\'' +
                 ", token='" + token + '\'' +
-                ", userVo=" + userVo +
+                ", user=" + user +
                 '}';
     }
 
@@ -55,11 +55,11 @@ public class AuthenticatedUserVo {
         this.token = token;
     }
 
-    public UserVo getUserVo() {
-        return userVo;
+    public UserVo getUser() {
+        return user;
     }
 
-    public void setUserVo(UserVo userVo) {
-        this.userVo = userVo;
+    public void setUser(UserVo user) {
+        this.user = user;
     }
 }

@@ -14,6 +14,7 @@ import com.gochain.gochainandroid.R;
 import com.gochain.gochainandroid.adapter.PollAdapter;
 import com.gochain.gochainandroid.model.Poll;
 import com.gochain.gochainandroid.model.PollDetails;
+import com.gochain.gochainandroid.rest.GoChainRestService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +24,11 @@ public class HomeFragment extends Fragment {
     private PollAdapter adapter;
     private List<Poll> itemList;
 
+    private GoChainRestService goChainRestService;
+
     public HomeFragment() {
-        // Required empty public constructor
+        goChainRestService = new GoChainRestService();
+        goChainRestService.fetchCampaigns();
     }
 
     @Override
