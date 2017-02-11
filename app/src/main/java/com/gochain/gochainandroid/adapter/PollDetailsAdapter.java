@@ -178,18 +178,6 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
         });
     }
 
-    /**
-     * Showing popup menu when tapping on 3 dots
-     */
-    private void showPopupMenu(View view) {
-        // inflate menu
-        PopupMenu popup = new PopupMenu(mContext, view);
-        MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.menu_item, popup.getMenu());
-        popup.show();
-    }
-
-
     @Override
     public int getItemCount() {
         return itemList.size();
