@@ -10,7 +10,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/park"
+        app:srcCompat="@drawable/publicparksmall"
         android:id="@+id/image"
         android:paddingBottom="16dp"/>
 

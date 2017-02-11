@@ -3,27 +3,27 @@ package com.gochain.gochainandroid.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.gochain.gochainandroid.R;
 import com.gochain.gochainandroid.adapter.PollDetailsAdapter;
 import com.gochain.gochainandroid.model.Poll;
-import com.gochain.gochainandroid.model.PollDetails;
-
-import java.util.List;
 
 public class DetailsFragment extends Fragment {
     private RecyclerView recyclerView;
     private Poll poll;
+    private Boolean editable;
     private PollDetailsAdapter adapter;
     private TextView title, daysRemained;
+    private Button submitBtn;
 
     public DetailsFragment() {
         // Required empty public constructor
@@ -40,7 +40,25 @@ public class DetailsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        adapter = new PollDetailsAdapter(this, poll.getPollDetails());
+        adapter = new PollDetailsAdapter(this, poll.getPollDetails(), editable, false);
+        submitBtn = (Button) rootView.findViewById(R.id.submitBtn);
+
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                FinishFragment fragment = new FinishFragment();
+
+                fragment.setPoll(poll);
+                fragment.setVotedPollDetails(poll.getPollDetails().subList(0, 1));
+                fragment.setEditable(false);
+
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.container_body, fragment).addToBackStack("details_fragment")
+                        .commit();
+            }
+        });
 
         title = (TextView) rootView.findViewById(R.id.title);
         title.setText(poll.getName());
@@ -68,6 +86,10 @@ public class DetailsFragment extends Fragment {
 
     public void setPoll(Poll poll){
         this.poll = poll;
+    }
+
+    public void setEditable(Boolean editable){
+        this.editable = editable;
     }
 
 }

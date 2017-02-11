@@ -49,10 +49,11 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.MyViewHolder> 
                     DetailsFragment fragment = new DetailsFragment();
                     int i = getPosition();
                     fragment.setPoll(itemList.get(i));
+                    fragment.setEditable(true);
 
                     parent.getFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.container_body, fragment)
+                            .replace(R.id.container_body, fragment).addToBackStack("poll_fragment")
                             .commit();
 
                 }
