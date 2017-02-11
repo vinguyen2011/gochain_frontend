@@ -22,10 +22,12 @@ import com.gochain.gochainandroid.rest.GoChainRestService;
 
 import java.util.List;
 import com.gochain.gochainandroid.model.Poll;
+import com.gochain.gochainandroid.services.DateConverter;
+import com.gochain.gochainandroid.vo.CampaignVo;
 
 public class DetailsFragment extends Fragment {
     private RecyclerView recyclerView;
-    private Poll poll;
+    private CampaignVo poll;
     private Boolean editable;
     private PollDetailsAdapter adapter;
 
@@ -49,7 +51,7 @@ public class DetailsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        adapter = new PollDetailsAdapter(this, poll.getPollDetails(), editable, false);
+        adapter = new PollDetailsAdapter(this, poll.getProjectVos(), editable, false);
         submitBtn = (Button) rootView.findViewById(R.id.submitBtn);
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +61,7 @@ public class DetailsFragment extends Fragment {
                 FinishFragment fragment = new FinishFragment();
 
                 fragment.setPoll(poll);
-                fragment.setVotedPollDetails(poll.getPollDetails().subList(0, 1));
+                fragment.setVotedPollDetails(poll.getProjectVos().subList(0, 1));
                 fragment.setEditable(false);
 
                 getFragmentManager()
@@ -70,10 +72,10 @@ public class DetailsFragment extends Fragment {
         });
 
         title = (TextView) rootView.findViewById(R.id.title);
-        title.setText(poll.getName());
+        title.setText(poll.getCampaignId());
 
         daysRemained = (TextView) rootView.findViewById(R.id.daysRemained);
-        daysRemained.setText(poll.getDaysRemained() + " days remained");
+        daysRemained.setText(new DateConverter().getDaysTillExpireDate(poll.getExpiryDate()) + " days remained");
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -93,7 +95,7 @@ public class DetailsFragment extends Fragment {
         super.onDetach();
     }
 
-    public void setPoll(Poll poll){
+    public void setPoll(CampaignVo poll){
         this.poll = poll;
     }
 

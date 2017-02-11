@@ -13,26 +13,31 @@ public class ProjectFlatVo {
     private List<String> tags;
     private int cost;
     private int costCovered;
-    private String campaignId;
+    private String voteRestrictionField;
+    private List<String> voteRestrictionValues;
     private String voteRestriction;
     private Long expiryDate;
+    private int pictureID;
 
     public ProjectFlatVo() {
         super();
     }
 
     public ProjectFlatVo(String projectId, String name, String location, String description, int cost, int costCovered,
-                         String campaignId, String voteRestriction, Long expiryDate, List<String> tags) {
+                         String voteRestrictionField, List<String> voteRestrictionValues,
+                         String voteRestriction, Long expiryDate, List<String> tags, int pictureID) {
         this.projectId = projectId;
         this.name = name;
         this.location = location;
         this.description = description;
         this.cost = cost;
         this.costCovered = costCovered;
-        this.campaignId = campaignId;
+        this.voteRestrictionField = voteRestrictionField;
         this.voteRestriction = voteRestriction;
         this.expiryDate = expiryDate;
         this.tags = tags;
+        this.voteRestrictionValues = voteRestrictionValues;
+        this.pictureID = pictureID;
     }
 
     public String getProjectId() {
@@ -83,12 +88,28 @@ public class ProjectFlatVo {
         this.costCovered = costCovered;
     }
 
-    public String getCampaignId() {
-        return campaignId;
+    public String getVoteRestrictionField() {
+        return voteRestrictionField;
     }
 
-    public void setCampaignId(String campaignId) {
-        this.campaignId = campaignId;
+    public void setVoteRestrictionField(String voteRestrictionField) {
+        this.voteRestrictionField = voteRestrictionField;
+    }
+
+    public List<String> getVoteRestrictionValues() {
+        return voteRestrictionValues;
+    }
+
+    public void setVoteRestrictionValues(List<String> voteRestrictionValues) {
+        this.voteRestrictionValues = voteRestrictionValues;
+    }
+
+    public int getPictureID() {
+        return pictureID;
+    }
+
+    public void setPictureID(int pictureID) {
+        pictureID = pictureID;
     }
 
     public String getVoteRestriction() {
@@ -125,7 +146,6 @@ public class ProjectFlatVo {
                 ", tags=" + tags +
                 ", cost=" + cost +
                 ", costCovered=" + costCovered +
-                ", campaignId='" + campaignId + '\'' +
                 ", voteRestriction='" + voteRestriction + '\'' +
                 ", expiryDate=" + expiryDate +
                 '}';

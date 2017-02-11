@@ -25,6 +25,9 @@ import com.gochain.gochainandroid.R;
 import com.gochain.gochainandroid.activities.DetailsFragment;
 import com.gochain.gochainandroid.model.Poll;
 import com.gochain.gochainandroid.model.PollDetails;
+import com.gochain.gochainandroid.vo.CampaignVo;
+import com.gochain.gochainandroid.vo.ProjectFlatVo;
+import com.gochain.gochainandroid.vo.ProjectVo;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
@@ -37,9 +40,9 @@ import java.util.List;
 
 public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.MyViewHolder> {
     private Context mContext;
-    private List<PollDetails> itemList;
+    private List<ProjectVo> itemList;
     private Fragment parent;
-    private PollDetails item;
+    private ProjectVo item;
     private Boolean editable, voted;
     private List<DiscreteSeekBar> bars = new ArrayList<>();
 
@@ -59,7 +62,7 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
     }
 
 
-    public PollDetailsAdapter(Fragment parent, List<PollDetails> itemList, Boolean editable, Boolean voted) {
+    public PollDetailsAdapter(Fragment parent, List<ProjectVo> itemList, Boolean editable, Boolean voted) {
         this.parent = parent;
         this.mContext = parent.getContext();
         this.itemList = itemList;
@@ -79,8 +82,8 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         item = itemList.get(position);
 
-        holder.title.setText(item.getTitle());
-        holder.status.setText(String.valueOf(item.getStatus()));
+        holder.title.setText(item.getName());
+        holder.status.setText(String.valueOf(item.getCostCovered()));
         holder.cost.setText(" / " + item.getCost() + " €");
 
         if (this.editable == false) {
@@ -88,7 +91,7 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
         }
 
         if (this.voted == true) {
-            holder.percentage.setText("Your preference: " + item.getPercentage() + "%");
+            holder.percentage.setText("Your preference: " + 0 + "%");
         } else if (this.editable == false) {
             holder.percentage.setVisibility(View.GONE);
         }
@@ -147,13 +150,13 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
 
             @Override
             public void onClick(View arg0) {
-                PollDetails itemA = itemList.get(position);
+                ProjectVo itemA = itemList.get(position);
 
                 // custom dialog
                 final Dialog dialog = new Dialog(mContext);
                 dialog.setContentView(R.layout.dialog_detail);
                 TextView title = (TextView) dialog.findViewById(R.id.title);
-                title.setText(itemA.getTitle());
+                title.setText(itemA.getName());
 
                 TextView description = (TextView) dialog.findViewById(R.id.description);
                 description.setText(itemA.getDescription());
@@ -162,7 +165,7 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
                 cost.setText("Budget needed: " + itemA.getCost() + " €");
 
                 ImageView image = (ImageView) dialog.findViewById(R.id.image);
-                image.setImageResource(itemA.getPhotoId());
+                image.setImageResource(itemA.getPictureId());
 
                 Button dialogButton = (Button) dialog.findViewById(R.id.closeBtn);
                 // if button is clicked, close the custom dialog

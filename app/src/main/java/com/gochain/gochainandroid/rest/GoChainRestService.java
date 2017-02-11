@@ -91,16 +91,7 @@ public class GoChainRestService extends AbstractRestService {
     }
 
     public Boolean sendDummyVote() {
-        ProjectVo projectVo1 = new ProjectVo("1", "testProjectName1", "Amsterdam", "test description 1", 1000, 70);
-        ProjectVo projectVo2 = new ProjectVo("2", "testProjectName2", "Groningen", "test description 2", 1000, 20);
-        ProjectVo projectVo3 = new ProjectVo("3", "testProjectName3", "Roterdam", "test description 3", 1000, 10);
-        List<ProjectVo> projectVos = new ArrayList<>(3);
-        projectVos.add(projectVo1);
-        projectVos.add(projectVo2);
-        projectVos.add(projectVo3);
-
-        CampaignVo campaignVo = new CampaignVo("campaign1", "none", new Date().getTime(), projectVos);
-        VoteVo voteVo = new VoteVo("bradDigiD", campaignVo);
+        VoteVo voteVo = new VoteVo("bradDigiD", null);
         return this.sendVote(voteVo);
     }
 }

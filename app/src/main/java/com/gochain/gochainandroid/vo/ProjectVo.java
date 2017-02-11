@@ -12,18 +12,22 @@ public class ProjectVo {
     private String description;
     private int cost;
     private int costCovered;
+    private int pictureId;
 
     public ProjectVo() {
         super();
     }
 
-    public ProjectVo(String projectId, String name, String location, String description, int cost, int costCovered) {
+    public ProjectVo(String projectId, String name, String location,
+                     String description, int cost, int costCovered,
+                     int pictureId) {
         this.projectId = projectId;
         this.name = name;
         this.location = location;
         this.description = description;
         this.cost = cost;
         this.costCovered = costCovered;
+        this.pictureId = pictureId;
     }
 
     public String getProjectId() {
@@ -72,5 +76,13 @@ public class ProjectVo {
 
     public void setCostCovered(int costCovered) {
         this.costCovered = costCovered;
+    }
+
+    public int getPictureId() {
+        return pictureId;
+    }
+
+    public void setPictureId(int pictureId) {
+        this.pictureId = pictureId;
     }
 }

@@ -18,9 +18,13 @@ import com.gochain.gochainandroid.R;
 import com.gochain.gochainandroid.activities.DetailsFragment;
 import com.gochain.gochainandroid.model.Poll;
 import com.gochain.gochainandroid.model.PollDetails;
+import com.gochain.gochainandroid.services.DateConverter;
+import com.gochain.gochainandroid.vo.CampaignVo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by vinguyen on 07/02/2017.
@@ -28,8 +32,14 @@ import java.util.List;
 
 public class PollAdapter extends RecyclerView.Adapter<PollAdapter.MyViewHolder> {
     private Context mContext;
-    private List<Poll> itemList;
+    private List<CampaignVo> itemList;
     private Fragment parent;
+    private int[] photos = new int[]{
+            R.drawable.publicparksmall,
+            R.drawable.swimmingpoolsmall,
+            R.drawable.youthcentersmall,
+            R.drawable.amuseparksmall,
+            R.drawable.footballfieldsmall};
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, daysRemained;
@@ -62,7 +72,7 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.MyViewHolder> 
     }
 
 
-    public PollAdapter(Fragment parent, List<Poll> itemList) {
+    public PollAdapter(Fragment parent, List<CampaignVo> itemList) {
         this.parent = parent;
         this.mContext = parent.getContext();
         this.itemList = itemList;
@@ -78,10 +88,10 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        Poll item = itemList.get(position);
-        holder.name.setText(item.getName());
-        holder.image.setImageResource(item.getImage());
-        holder.daysRemained.setText(item.getDaysRemained() + " days remained");
+        CampaignVo item = itemList.get(position);
+        holder.name.setText(item.getCampaignId());
+        holder.image.setImageResource(photos[ThreadLocalRandom.current().nextInt(0, 5)]);
+        holder.daysRemained.setText(new DateConverter().getDaysTillExpireDate(item.getExpiryDate()) + " days remained");
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
