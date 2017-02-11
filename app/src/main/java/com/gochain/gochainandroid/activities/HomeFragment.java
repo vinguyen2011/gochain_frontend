@@ -6,14 +6,21 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.gochain.gochainandroid.R;
+import com.gochain.gochainandroid.SessionValueHelper;
 import com.gochain.gochainandroid.adapter.PollAdapter;
 import com.gochain.gochainandroid.model.Poll;
 import com.gochain.gochainandroid.model.PollDetails;
+import com.gochain.gochainandroid.rest.GoChainRestService;
+import com.gochain.gochainandroid.vo.AuthenticatedUserVo;
+import com.gochain.gochainandroid.vo.CampaignVo;
+import com.gochain.gochainandroid.vo.CampaignVoContainer;
+import com.gochain.gochainandroid.vo.UserVo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +28,8 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private PollAdapter adapter;
-    private List<Poll> itemList;
+    private List<CampaignVo> itemList;
+    private GoChainRestService goChainRestService;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -30,6 +38,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        goChainRestService = new GoChainRestService();
+
     }
 
     @Override
@@ -39,7 +49,10 @@ public class HomeFragment extends Fragment {
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
 
-        itemList = new ArrayList<>();
+        // fetch item from blockchain
+        itemList = goChainRestService.fetchCampaigns();
+        Log.i("Campaigns", itemList.toString());
+
         adapter = new PollAdapter(this, itemList);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this.getContext());
@@ -47,7 +60,6 @@ public class HomeFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-        prepareItems();
 
         // Inflate the layout for this fragment
         return rootView;
@@ -63,48 +75,4 @@ public class HomeFragment extends Fragment {
         super.onDetach();
     }
 
-    private void prepareItems() {
-        int[] photos = new int[]{
-                R.drawable.publicparksmall,
-                R.drawable.swimmingpoolsmall,
-                R.drawable.youthcentersmall,
-                R.drawable.amuseparksmall,
-                R.drawable.footballfieldsmall};
-        String[] name = new String[]{
-                "Park",
-                "Swimming pool",
-                "Youth center",
-                "Amusement park",
-                "Football field"};
-
-        double[] status = new double[] {
-                112.0,
-                13,
-                23,
-                0,
-                0
-        };
-        PollDetails detail;
-        List<PollDetails> details = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            detail = new PollDetails(name[i],
-                    "Description Description Description Description Description Description Description",
-                    123.4, photos[i], status[i], 23.6);
-            details.add(detail);
-        }
-
-        Poll a = new Poll("Social Projects Q1 2017", photos[0], details, 30);
-        itemList.add(a);
-
-        Poll b = new Poll("Education projects Q1 2017", photos[1], details, 90);
-        itemList.add(b);
-        itemList.add(b);
-        itemList.add(b);
-        itemList.add(b);
-        itemList.add(b);
-        itemList.add(b);
-        itemList.add(b);
-
-        adapter.notifyDataSetChanged();
-    }
 }

@@ -42,6 +42,6 @@ public class ProjectFlatToVoConverter {
         return new ProjectVo(projectFlatVo.getProjectId(),
                 projectFlatVo.getName(), projectFlatVo.getLocation(),
                 projectFlatVo.getDescription(), projectFlatVo.getCost(),
-                projectFlatVo.getCostCovered());
+                projectFlatVo.getCostCovered(), projectFlatVo.getPictureID());
     }
 }

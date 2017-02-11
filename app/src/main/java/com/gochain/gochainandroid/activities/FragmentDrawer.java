@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import com.gochain.gochainandroid.R;
 import com.gochain.gochainandroid.adapter.NavigationDrawerAdapter;
 import com.gochain.gochainandroid.model.NavDrawerItem;
+import com.gochain.gochainandroid.rest.GoChainRestService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,6 @@ public class FragmentDrawer extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // drawer labels
         titles = getActivity().getResources().getStringArray(R.array.nav_drawer_labels);
     }

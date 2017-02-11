@@ -17,6 +17,10 @@ import com.gochain.gochainandroid.R;
 import com.gochain.gochainandroid.adapter.PollDetailsAdapter;
 import com.gochain.gochainandroid.model.Poll;
 import com.gochain.gochainandroid.model.PollDetails;
+import com.gochain.gochainandroid.services.DateConverter;
+import com.gochain.gochainandroid.vo.CampaignVo;
+import com.gochain.gochainandroid.vo.ProjectFlatVo;
+import com.gochain.gochainandroid.vo.ProjectVo;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
@@ -25,8 +29,8 @@ import java.util.List;
 
 public class FinishFragment extends Fragment {
     private RecyclerView recyclerViewVotedPolls, recyclerViewPolls;
-    private List<PollDetails> votedPollDetails = new ArrayList<>();
-    private Poll poll;
+    private List<ProjectVo> votedPollDetails = new ArrayList<>();
+    private CampaignVo poll;
     private Boolean editable;
     private PollDetailsAdapter adapterVotedPolls, adapterPolls;
     private TextView title, daysRemained;
@@ -48,13 +52,13 @@ public class FinishFragment extends Fragment {
         // all polls
         recyclerViewPolls = (RecyclerView) rootView.findViewById(R.id.recycler_view_polls);
 
-        adapterPolls = new PollDetailsAdapter(this, poll.getPollDetails(), editable, false);
+        adapterPolls = new PollDetailsAdapter(this, poll.getProjectVos(), editable, false);
 
         title = (TextView) rootView.findViewById(R.id.title);
-        title.setText(poll.getName());
+        title.setText(poll.getCampaignId());
 
         daysRemained = (TextView) rootView.findViewById(R.id.daysRemained);
-        daysRemained.setText(poll.getDaysRemained() + " days remained");
+        daysRemained.setText(new DateConverter().getDaysTillExpireDate(poll.getExpiryDate()) + " days remained");
 
         RecyclerView.LayoutManager votedLayoutManager = new LinearLayoutManager(this.getContext());
         recyclerViewPolls.setLayoutManager(votedLayoutManager);
@@ -87,11 +91,11 @@ public class FinishFragment extends Fragment {
         super.onDetach();
     }
 
-    public void setVotedPollDetails(List<PollDetails> votedPollDetails){
+    public void setVotedPollDetails(List<ProjectVo> votedPollDetails){
         this.votedPollDetails = votedPollDetails;
     }
 
-    public void setPoll(Poll poll){
+    public void setPoll(CampaignVo poll){
         this.poll = poll;
     }
 
