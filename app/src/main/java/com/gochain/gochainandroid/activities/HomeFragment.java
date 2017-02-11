@@ -65,26 +65,32 @@ public class HomeFragment extends Fragment {
 
     private void prepareItems() {
         int[] photos = new int[]{
-                R.drawable.album1,
-                R.drawable.album2,
-                R.drawable.album3};
+                R.drawable.park,
+                R.drawable.swimming_pool,
+                R.drawable.gym};
         String[] name = new String[]{
                 "Park",
                 "Swimming pool",
-                "Gym"};
+                "Gymc"};
+
+        double[] status = new double[] {
+                112.0,
+                13,
+                23
+        };
         PollDetails detail;
         List<PollDetails> details = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             detail = new PollDetails(name[i],
                     "Description Description Description Description Description Description Description",
-                    123.4, photos[i], 123.4, 23.6);
+                    123.4, photos[i], status[i], 23.6);
             details.add(detail);
         }
 
-        Poll a = new Poll("Social Projects for Q1 2017", photos[0], details);
+        Poll a = new Poll("Social Projects Q1 2017", photos[0], details, 30);
         itemList.add(a);
 
-        Poll b = new Poll("Education project for Q1 2017", photos[1], details);
+        Poll b = new Poll("Education projects Q1 2017", photos[1], details, 90);
         itemList.add(b);
         itemList.add(b);
         itemList.add(b);

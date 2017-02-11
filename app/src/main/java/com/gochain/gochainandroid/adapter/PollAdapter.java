@@ -32,12 +32,14 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.MyViewHolder> 
     private Fragment parent;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name;
+        public TextView name, daysRemained;
         public ImageView image, overflow;
 
         public MyViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.item_name);
+            daysRemained = (TextView) view.findViewById(R.id.daysRemained);
+
             image = (ImageView) view.findViewById(R.id.item_photo);
             overflow = (ImageView) view.findViewById(R.id.overflow);
 
@@ -46,7 +48,7 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.MyViewHolder> 
                 public void onClick(View v) {
                     DetailsFragment fragment = new DetailsFragment();
                     int i = getPosition();
-                    fragment.setCustomObject(itemList.get(i).getPollDetails());
+                    fragment.setPoll(itemList.get(i));
 
                     parent.getFragmentManager()
                             .beginTransaction()
@@ -78,6 +80,7 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.MyViewHolder> 
         Poll item = itemList.get(position);
         holder.name.setText(item.getName());
         holder.image.setImageResource(item.getImage());
+        holder.daysRemained.setText(item.getDaysRemained() + " days remained");
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override

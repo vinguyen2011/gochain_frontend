@@ -14,16 +14,16 @@
         android:paddingTop="60dp">
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_layout_email"
+            android:id="@+id/input_layout_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/input_email"
+                android:id="@+id/input_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:hint="@string/prompt_email" />
+                android:inputType="text"
+                android:hint="@string/prompt_username" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -37,7 +37,29 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:hint="@string/prompt_password" />
+
         </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center">
+
+            <ImageView
+                android:layout_width="39dp"
+                app:srcCompat="@drawable/digid"
+                android:id="@+id/imageView"
+                android:layout_height="34dp" />
+
+            <TextView
+                android:text="Powered by Digid"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView"
+                android:layout_weight="1"
+                android:layout_width="100dp" />
+
+        </LinearLayout>
 
         <Button android:id="@+id/btn_signup"
             android:layout_width="fill_parent"

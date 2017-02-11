@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:id="@+id/title"
+        android:textColor="@color/colorPrimaryDark"
         android:paddingBottom="8dp"
         android:layout_below="@+id/image" />
 

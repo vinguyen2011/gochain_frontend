@@ -37,17 +37,18 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
     private Context mContext;
     private List<PollDetails> itemList;
     private Fragment parent;
-    private TextView percentage;
     private PollDetails item;
+    private List<DiscreteSeekBar> bars = new ArrayList<>();
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, status;
+        public TextView title, status, cost, percentage;
         private DiscreteSeekBar bar;
         private ImageButton infoBtn;
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             status = (TextView) view.findViewById(R.id.status);
+            cost = (TextView) view.findViewById(R.id.cost);
             bar = (DiscreteSeekBar) view.findViewById(R.id.voteBar);
             percentage = (TextView) view.findViewById(R.id.percentage);
             infoBtn = (ImageButton) view.findViewById(R.id.infoBtn);
@@ -74,7 +75,9 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
         item = itemList.get(position);
 
         holder.title.setText(item.getTitle());
-        holder.status.setText(item.getStatus() + " / " + item.getCost() + "$");
+        holder.status.setText(String.valueOf(item.getStatus()));
+        holder.cost.setText(" / " + item.getCost() + " €");
+        holder.bar.setProgress(0);
 
         // add button listener
         holder.infoBtn.setOnClickListener(new View.OnClickListener() {
@@ -88,10 +91,12 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
                 dialog.setContentView(R.layout.dialog_detail);
                 TextView title = (TextView) dialog.findViewById(R.id.title);
                 title.setText(itemA.getTitle());
+
                 TextView description = (TextView) dialog.findViewById(R.id.description);
                 description.setText(itemA.getDescription());
+
                 TextView cost = (TextView) dialog.findViewById(R.id.cost);
-                cost.setText(itemA.getCost() + "$");
+                cost.setText("Budget needed: " + itemA.getCost() + " €");
 
                 ImageView image = (ImageView) dialog.findViewById(R.id.image);
                 image.setImageResource(itemA.getPhotoId());
@@ -108,6 +113,52 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
                 dialog.show();
             }
         });
+
+        //add bar listener
+        holder.bar.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
+            @Override
+            public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
+                holder.percentage.setText("Current selection: " + value + "%");
+                int sum = 0;
+                for (int i = 0; i < bars.size(); i++) {
+                    sum = sum + bars.get(i).getProgress();
+                }
+
+                if (sum > 100) {
+                    // balance others
+                    int extra = sum - 100;
+                    List<DiscreteSeekBar> otherBars = new ArrayList<DiscreteSeekBar>();
+                    for (int i = 0; i < bars.size(); i++) {
+                        if (bars.get(i).getId() - seekBar.getId() != 0) {
+                            otherBars.add(bars.get(i));
+                        }
+                    }
+
+                    if (otherBars.size() > 0) {
+                        int adjustment = extra / (otherBars.size());
+                        for (int i = 0; i < otherBars.size(); i++) {
+                            if (i < otherBars.size() - 1) {
+                                otherBars.get(i).setProgress(adjustment);
+                            } else {
+                                otherBars.get(i).setProgress(extra - (adjustment * (otherBars.size() - 1)));
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(DiscreteSeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
+
+            }
+        });
+
+        bars.add(holder.bar);
     }
 
     /**

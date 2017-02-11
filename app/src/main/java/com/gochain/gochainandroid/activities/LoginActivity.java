@@ -21,8 +21,8 @@ import com.gochain.gochainandroid.R;
  */
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText inputEmail, inputPassword;
-    private TextInputLayout inputLayoutEmail, inputLayoutPassword;
+    private EditText inputUsername, inputPassword;
+    private TextInputLayout inputLayoutUsername, inputLayoutPassword;
     private Button btnSignUp;
     private ProgressBar progressBar;
     private LinearLayout loginForm;
@@ -31,14 +31,15 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        inputLayoutEmail = (TextInputLayout) findViewById(R.id.input_layout_email);
+//        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//        startActivity(intent);
+        inputLayoutUsername = (TextInputLayout) findViewById(R.id.input_layout_username);
         inputLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
-        inputEmail = (EditText) findViewById(R.id.input_email);
+        inputUsername = (EditText) findViewById(R.id.input_username);
         inputPassword = (EditText) findViewById(R.id.input_password);
         btnSignUp = (Button) findViewById(R.id.btn_signup);
 
-        inputEmail.addTextChangedListener(new MyTextWatcher(inputEmail));
+        inputUsername.addTextChangedListener(new MyTextWatcher(inputUsername));
         inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));
 
         progressBar = (ProgressBar) findViewById(R.id.login_progress);
@@ -79,14 +80,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean validateEmail() {
-        String email = inputEmail.getText().toString().trim();
-
-        if (email.isEmpty() || !isValidEmail(email)) {
-            inputLayoutEmail.setError(getString(R.string.error_invalid_email));
-            requestFocus(inputEmail);
+        if (inputUsername.getText().toString().trim().isEmpty()) {
+            inputLayoutUsername.setError(getString(R.string.error_invalid_username));
+            requestFocus(inputUsername);
             return false;
         } else {
-            inputLayoutEmail.setErrorEnabled(false);
+            inputLayoutUsername.setErrorEnabled(false);
         }
 
         return true;
@@ -104,9 +103,9 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-    private static boolean isValidEmail(String email) {
-        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
+//    private static boolean isValidEmail(String email) {
+//        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+//    }
 
     private void requestFocus(View view) {
         if (view.requestFocus()) {
@@ -130,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
 
         public void afterTextChanged(Editable editable) {
             switch (view.getId()) {
-                case R.id.input_email:
+                case R.id.input_username:
                     validateEmail();
                     break;
                 case R.id.input_password:

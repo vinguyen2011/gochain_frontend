@@ -30,7 +30,16 @@
                 android:id="@+id/item_name"
                 android:layout_toRightOf="@+id/item_photo"
                 android:layout_alignParentTop="true"
-                android:textSize="20sp" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20dp" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/item_name"
+                android:layout_toRightOf="@+id/item_photo"
+                android:id="@+id/daysRemained" />
 
             <ImageView
                 android:id="@+id/overflow"
