@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
 
         // fetch item from blockchain
-        itemList = new ArrayList<CampaignVo>();//goChainService.fetchCampaigns();
+        itemList = new GoChainService().getCampaigns();
         Log.i("Campaigns", itemList.toString());
 
         adapter = new PollAdapter(this, itemList);

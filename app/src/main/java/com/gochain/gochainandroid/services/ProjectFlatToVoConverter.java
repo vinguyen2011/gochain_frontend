@@ -16,13 +16,13 @@ public class ProjectFlatToVoConverter {
 
     public ProjectFlatToVoConverter() {}
 
-    public CampaignVoContainer convertProjectFlatToCampaignContainer(ProjectFlatVo[] projectFlatVos) {
-        CampaignVoContainer campaignVoContainer = new CampaignVoContainer();
+    public List<CampaignVo> convertProjectFlatToCampaignContainer(ProjectFlatVo[] projectFlatVos) {
+        List<CampaignVo> campaignVos = new ArrayList<>();
         for (ProjectFlatVo projectFlatVo: projectFlatVos) {
             for (String tag: projectFlatVo.getTags()) {
                 CampaignVo existCampaign = null;
 
-                for (CampaignVo campaignVo: campaignVoContainer.getCampaignVos()) {
+                for (CampaignVo campaignVo: campaignVos) {
                     if (campaignVo.getCampaignId().equals(tag)) {
                         existCampaign = campaignVo;
                         break;
@@ -30,12 +30,13 @@ public class ProjectFlatToVoConverter {
                 }
 
                 if (existCampaign == null) {
+                    existCampaign = new CampaignVo();
                     existCampaign.setProjectVos(new ArrayList<ProjectVo>());
                 }
                 existCampaign.getProjectVos().add(produceProjectVoFromFlat(projectFlatVo));
             }
         }
-        return campaignVoContainer;
+        return campaignVos;
     }
 
     public ProjectVo produceProjectVoFromFlat(ProjectFlatVo projectFlatVo) {
