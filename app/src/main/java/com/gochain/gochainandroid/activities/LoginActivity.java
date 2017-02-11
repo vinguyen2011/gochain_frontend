@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.gochain.gochainandroid.R;
+import com.gochain.gochainandroid.SessionValueHelper;
 import com.gochain.gochainandroid.rest.GoChainRestService;
 import com.gochain.gochainandroid.vo.AuthenticatedUserVo;
 import com.gochain.gochainandroid.vo.UserVo;
@@ -210,8 +211,9 @@ public class LoginActivity extends AppCompatActivity {
         protected Boolean doInBackground(String... params) {
             // TODO: attempt authentication against a network service.
             AuthenticatedUserVo authenticatedUserVo = goChainRestService.authenticateUser(new UserVo(params[0], params[1]));
-            if (authenticatedUserVo != null) {
+            if (authenticatedUserVo != null && authenticatedUserVo.getAuthenticated()) {
                 Log.i("Login", authenticatedUserVo.toString());
+                SessionValueHelper.setSessionToken(authenticatedUserVo.getToken());
                 return true;
             }
 

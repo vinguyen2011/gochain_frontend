@@ -30,7 +30,8 @@ public class GoChainRestService extends AbstractRestService {
         restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
 
         try {
-            return restTemplate.postForObject(AUTHENTICATE_USER_URL, userVo, AuthenticatedUserVo.class);
+            AuthenticatedUserVo authenticatedUserVo = restTemplate.postForObject(AUTHENTICATE_USER_URL, userVo, AuthenticatedUserVo.class);
+            return authenticatedUserVo;
         } catch (Throwable t) {
             Log.e(this.getClass().getName(), "Error trying to authenticate user with server", t);
         }
