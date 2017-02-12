@@ -168,7 +168,9 @@ public class DetailsFragment extends Fragment {
         protected Boolean doInBackground(Void... params) {
             boolean success = true;
             for (VoteVo voteVo: adapter.getVotes()) {
-                success &= goChainRestService.sendVote(voteVo);
+                if (voteVo.getVotePercent() > 0) {
+                    success &= goChainRestService.sendVote(voteVo);
+                }
             }
             return success;
         }
