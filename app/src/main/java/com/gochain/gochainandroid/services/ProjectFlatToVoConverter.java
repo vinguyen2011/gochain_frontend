@@ -35,11 +35,13 @@ public class ProjectFlatToVoConverter {
                     existCampaign.setCampaignId(projectFlatVo.getTags().get(0));
                     existCampaign.setVoteRestriction(projectFlatVo.getVoteRestriction());
                     existCampaign.setProjectVos(new ArrayList<ProjectVo>());
+                    existCampaign.getProjectVos().add(produceProjectVoFromFlat(projectFlatVo));
+                    campaignVos.add(existCampaign);
+                } else {
+                    existCampaign.getProjectVos().add(produceProjectVoFromFlat(projectFlatVo));
                 }
-                existCampaign.getProjectVos().add(produceProjectVoFromFlat(projectFlatVo));
             }
 
-            campaignVos.add(existCampaign);
         }
         return campaignVos;
     }
