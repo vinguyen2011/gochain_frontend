@@ -79,7 +79,7 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     * Represents an asynchronous login/registration task used to authenticate
+     * Represents an asynchronous rest service calling task used to authenticate
      * the user.
      */
     public class RestTask extends AsyncTask<Void, Void, Boolean> {
@@ -91,7 +91,6 @@ public class HomeFragment extends Fragment {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
             itemList = goChainService.getCampaigns();
             Log.i("Campaigns", itemList.toString());
             return true;

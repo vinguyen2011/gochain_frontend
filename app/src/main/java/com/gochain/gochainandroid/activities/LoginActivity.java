@@ -203,7 +203,6 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            // TODO: attempt authentication against a network service.
             AuthenticatedUserVo authenticatedUserVo = goChainRestService.authenticateUser(new UserVo(params[0], params[1]));
             if (authenticatedUserVo != null && authenticatedUserVo.getAuthenticated()) {
                 Log.i("Login", authenticatedUserVo.toString());

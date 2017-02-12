@@ -154,7 +154,7 @@ public class DetailsFragment extends Fragment {
 
 
     /**
-     * Represents an asynchronous login/registration task used to authenticate
+     * Represents an asynchronous send vote task used to authenticate
      * the user.
      */
     public class SendVoteTask extends AsyncTask<Void, Void, Boolean> {
