@@ -19,9 +19,12 @@ import com.gochain.gochainandroid.activities.DetailsFragment;
 import com.gochain.gochainandroid.model.Poll;
 import com.gochain.gochainandroid.model.PollDetails;
 import com.gochain.gochainandroid.services.DateConverter;
+import com.gochain.gochainandroid.services.ImageProvider;
 import com.gochain.gochainandroid.vo.CampaignVo;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -34,12 +37,6 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.MyViewHolder> 
     private Context mContext;
     private List<CampaignVo> itemList;
     private Fragment parent;
-    private int[] photos = new int[]{
-            R.drawable.publicparksmall,
-            R.drawable.swimmingpoolsmall,
-            R.drawable.youthcentersmall,
-            R.drawable.amuseparksmall,
-            R.drawable.footballfieldsmall};
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, daysRemained;
@@ -71,11 +68,11 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.MyViewHolder> 
         }
     }
 
-
     public PollAdapter(Fragment parent, List<CampaignVo> itemList) {
         this.parent = parent;
         this.mContext = parent.getContext();
         this.itemList = itemList;
+        sort(this.itemList);
     }
 
     @Override
@@ -90,7 +87,7 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.MyViewHolder> 
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         CampaignVo item = itemList.get(position);
         holder.name.setText(item.getCampaignId());
-        holder.image.setImageResource(photos[ThreadLocalRandom.current().nextInt(0, 5)]);
+        holder.image.setImageResource(new ImageProvider().getImage());
         holder.daysRemained.setText(new DateConverter().getDaysTillExpireDate(item.getExpiryDate()) + " days remained");
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
@@ -114,10 +111,20 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.MyViewHolder> 
 
     public void add(List<CampaignVo> itemList) {
         this.itemList.addAll(itemList);
+        sort(this.itemList);
     }
 
     public void clear() {
         this.itemList.clear();
+    }
+
+    public void sort(List<CampaignVo> list) {
+        Collections.sort(list, new Comparator<CampaignVo>() {
+            @Override
+            public int compare(CampaignVo o1, CampaignVo o2) {
+                return o1.getExpiryDate().compareTo(o2.getExpiryDate());
+            }
+        });
     }
 
     @Override

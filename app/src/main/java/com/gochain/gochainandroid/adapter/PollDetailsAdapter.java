@@ -14,12 +14,17 @@ import android.widget.TextView;
 
 import com.gochain.gochainandroid.R;
 import com.gochain.gochainandroid.SessionValueHelper;
+import com.gochain.gochainandroid.model.Poll;
+import com.gochain.gochainandroid.services.ImageProvider;
+import com.gochain.gochainandroid.vo.CampaignVo;
 import com.gochain.gochainandroid.vo.ProjectVo;
 import com.gochain.gochainandroid.vo.VoteVo;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -34,12 +39,6 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
     private ProjectVo item;
     private Boolean editable, voted;
     private List<MyViewHolder> holders = new ArrayList<>();
-    private int[] photos = new int[]{
-            R.drawable.publicparksmall,
-            R.drawable.swimmingpoolsmall,
-            R.drawable.youthcentersmall,
-            R.drawable.amuseparksmall,
-            R.drawable.footballfieldsmall};
 
     public void clear() {
         itemList.clear();
@@ -47,6 +46,7 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
 
     public void add(List<ProjectVo> projectVos) {
         itemList.addAll(projectVos);
+        sort(itemList);
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -80,6 +80,7 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
         this.itemList = itemList;
         this.editable = editable;
         this.voted = voted;
+        sort(itemList);
     }
 
     @Override
@@ -190,7 +191,7 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
                 cost.setText("Budget needed: " + itemA.getCost() + " €");
 
                 ImageView image = (ImageView) dialog.findViewById(R.id.image);
-                image.setImageResource(photos[ThreadLocalRandom.current().nextInt(0, 5)]);
+                image.setImageResource(new ImageProvider().getImage());
 
                 Button dialogButton = (Button) dialog.findViewById(R.id.closeBtn);
                 // if button is clicked, close the custom dialog
@@ -202,6 +203,15 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
                 });
 
                 dialog.show();
+            }
+        });
+    }
+
+    public void sort(List<ProjectVo> list) {
+        Collections.sort(list, new Comparator<ProjectVo>() {
+            @Override
+            public int compare(ProjectVo o1, ProjectVo o2) {
+                return  (o2.getCostCovered() - o2.getCost()) - (o1.getCostCovered() - o1.getCost());
             }
         });
     }
