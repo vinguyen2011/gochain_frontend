@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gochain.gochainandroid.R;
@@ -23,6 +25,7 @@ import com.gochain.gochainandroid.adapter.PollDetailsAdapter;
 import com.gochain.gochainandroid.rest.GoChainRestService;
 
 import com.gochain.gochainandroid.services.DateConverter;
+import com.gochain.gochainandroid.services.ImageProvider;
 import com.gochain.gochainandroid.vo.CampaignVo;
 import com.gochain.gochainandroid.vo.VoteVo;
 
@@ -180,6 +183,22 @@ public class DetailsFragment extends Fragment {
             mVoteTask = null;
             showProgress(false);
             if (success) {
+                // show dialog
+                final Dialog dialog = new Dialog(recyclerView.getContext());
+                dialog.setContentView(R.layout.voted_dialog_detail);
+
+                Button dialogButton = (Button) dialog.findViewById(R.id.closeBtn);
+                // if button is clicked, close the custom dialog
+                dialogButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+
+                // move to finish screen
                 FinishFragment fragment = new FinishFragment();
 
                 fragment.setPoll(poll);
