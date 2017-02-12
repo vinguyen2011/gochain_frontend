@@ -1,30 +1,36 @@
 package com.gochain.gochainandroid.vo;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Brad on 10/02/2017.
  */
 
 public class VoteVo {
-    private String userId;
+
+    @SerializedName("_voterId")
+    private String voterId;
+    @SerializedName("_projectId")
     private String projectId;
-    private float votePercent;
+    @SerializedName("_votePercent")
+    private int votePercent;
 
     public VoteVo() {
         super();
     }
 
-    public VoteVo(String userId, String projectId, float votePercent) {
-        this.userId = userId;
+    public VoteVo(String voterId, String projectId, int votePercent) {
+        this.voterId = voterId;
         this.projectId = projectId;
         this.votePercent = votePercent;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getVoterId() {
+        return voterId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setVoterId(String voterId) {
+        this.voterId = voterId;
     }
 
     public String getProjectId() {
@@ -35,18 +41,18 @@ public class VoteVo {
         this.projectId = projectId;
     }
 
-    public float getVotePercent() {
+    public int getVotePercent() {
         return votePercent;
     }
 
-    public void setVotePercent(float votePercent) {
+    public void setVotePercent(int votePercent) {
         this.votePercent = votePercent;
     }
 
     @Override
     public String toString() {
         return "VoteVo{" +
-                "userId='" + userId + '\'' +
+                "voterId='" + voterId + '\'' +
                 ", projectId='" + projectId + '\'' +
                 ", votePercent=" + votePercent +
                 '}';

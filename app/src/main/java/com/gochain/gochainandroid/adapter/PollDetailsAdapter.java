@@ -94,7 +94,7 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
         for (MyViewHolder holder: holders) {
             VoteVo voteVo = new VoteVo(SessionValueHelper.getSessionUser().getUser().getUsername(),
                     holder.getProjectId(),
-                    ((float)holder.bar.getProgress())/100);
+                    holder.bar.getProgress());
             voteVos.add(voteVo);
         }
         return voteVos;

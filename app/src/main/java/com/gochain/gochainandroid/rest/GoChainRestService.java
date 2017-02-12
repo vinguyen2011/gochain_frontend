@@ -78,12 +78,12 @@ public class GoChainRestService extends AbstractRestService {
     }
 
     public Boolean sendVote(VoteVo voteVo) {
-        HttpEntity<String> entity = new HttpEntity<>(this.getHeaders());
+        HttpEntity<VoteVo> entity = new HttpEntity<>(voteVo, this.getHeaders());
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
         try {
             Log.i(TAG, "Sending vote: " + voteVo.toString());
-            restTemplate.postForObject(VOTE_URL, entity, Object.class, voteVo);
+            restTemplate.postForObject(VOTE_URL, entity, Object.class);
             return true;
         } catch (Throwable t) {
             Log.e(this.getClass().getName(), "Error trying to authenticate user with server", t);
