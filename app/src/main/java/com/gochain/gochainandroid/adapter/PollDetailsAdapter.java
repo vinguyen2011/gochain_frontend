@@ -48,6 +48,14 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
     private Boolean editable, voted;
     private List<MyViewHolder> holders = new ArrayList<>();
 
+    public void clear() {
+        itemList.clear();
+    }
+
+    public void add(List<ProjectVo> projectVos) {
+        itemList.addAll(projectVos);
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public String getProjectId() {
             return projectId;

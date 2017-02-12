@@ -93,8 +93,6 @@ public class HomeFragment extends Fragment {
             return true;
         }
 
-
-
         @Override
         protected void onPostExecute(final Boolean success) {
             if (success) {

@@ -124,6 +124,7 @@ public class DetailsFragment extends Fragment {
 
                 fragment.setPoll(poll);
                 fragment.setEditable(false);
+                fragment.setCampaignId(poll.getCampaignId());
 
                 getFragmentManager()
                         .beginTransaction()
@@ -134,6 +135,5 @@ public class DetailsFragment extends Fragment {
                 Log.e("HomeFragment", "Error sending vote");
             }
         }
-
     }
 }
