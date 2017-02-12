@@ -30,10 +30,11 @@ import java.util.List;
 
 public class GoChainRestService extends AbstractRestService {
     private static final String AUTHENTICATE_USER_URL = BASE_URL + "/auth/login";
-    private static final String VOTE_URL = BASE_URL + "/vote";
+    private static final String VOTE_URL = BASE_URL + "/api/v1/voter/vote";
     private static final String FETCH_CAMPAIGNS_URL = BASE_URL + "/fetch_campaigns";
     private static final String VOTER_USER_URL = BASE_URL + "/api/v1/projects/voter/{user}";
 
+    private static final String TAG = "GoChainRestService";
 
     public AuthenticatedUserVo authenticateUser(UserVo userVo) {
         RestTemplate restTemplate = new RestTemplate();
@@ -56,7 +57,6 @@ public class GoChainRestService extends AbstractRestService {
         acceptTypes.add(MediaType.APPLICATION_JSON);
         headers.setAccept(acceptTypes);
         headers.set("x-access-token", SessionValueHelper.getSessionUser().getToken());
-        Log.i("Token", SessionValueHelper.getSessionUser().getToken());
         return headers;
     }
 
@@ -69,7 +69,7 @@ public class GoChainRestService extends AbstractRestService {
 //            CampaignVoContainer campaignVos = restTemplate.getForObject(VOTE_URL, CampaignVoContainer.class)
             ResponseEntity<ProjectFlatVo[]> responseEntity = restTemplate.exchange(VOTER_USER_URL, HttpMethod.GET, entity, ProjectFlatVo[].class, SessionValueHelper.getSessionUser().getUser().getUsername());
             ProjectFlatVo[] projectFlatVos = responseEntity.getBody();
-            Log.i("nnkn", "got back: " + projectFlatVos.length);
+            Log.i(TAG, "got back: " + projectFlatVos.length);
             return projectFlatVos;
         } catch (Throwable t) {
             Log.e(this.getClass().getName(), "Error trying to authenticate user with server", t);
@@ -82,16 +82,13 @@ public class GoChainRestService extends AbstractRestService {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
         try {
-            Boolean success = restTemplate.postForObject(VOTE_URL, entity, Boolean.class, voteVo);
-            return success;
+            Log.i(TAG, "Sending vote: " + voteVo.toString());
+            restTemplate.postForObject(VOTE_URL, entity, Object.class, voteVo);
+            return true;
         } catch (Throwable t) {
             Log.e(this.getClass().getName(), "Error trying to authenticate user with server", t);
         }
         return false;
     }
 
-    public Boolean sendDummyVote() {
-        VoteVo voteVo = new VoteVo("bradDigiD", null);
-        return this.sendVote(voteVo);
-    }
 }

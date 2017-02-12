@@ -24,6 +24,7 @@ import java.util.List;
 import com.gochain.gochainandroid.model.Poll;
 import com.gochain.gochainandroid.services.DateConverter;
 import com.gochain.gochainandroid.vo.CampaignVo;
+import com.gochain.gochainandroid.vo.VoteVo;
 
 public class DetailsFragment extends Fragment {
     private RecyclerView recyclerView;
@@ -49,25 +50,17 @@ public class DetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
-
+        mVoteTask = new SendVoteTask();
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         adapter = new PollDetailsAdapter(this, poll.getProjectVos(), editable, false);
+
         submitBtn = (Button) rootView.findViewById(R.id.submitBtn);
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                FinishFragment fragment = new FinishFragment();
-
-                fragment.setPoll(poll);
-                fragment.setVotedPollDetails(poll.getProjectVos().subList(0, 1));
-                fragment.setEditable(false);
-
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.container_body, fragment).addToBackStack("details_fragment")
-                        .commit();
+            mVoteTask.execute();
             }
         });
 
@@ -108,23 +101,35 @@ public class DetailsFragment extends Fragment {
      * the user.
      */
     public class SendVoteTask extends AsyncTask<Void, Void, Boolean> {
+        GoChainRestService goChainRestService;
 
         SendVoteTask() {
+            goChainRestService = new GoChainRestService();
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            return new GoChainRestService().sendDummyVote();
+            boolean success = true;
+            for (VoteVo voteVo: adapter.getVotes()) {
+                success &= goChainRestService.sendVote(voteVo);
+            }
+            return success;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            mVoteTask = null;
 
             if (success) {
-                Log.e("HomeFragment", "Vote sent");
+                FinishFragment fragment = new FinishFragment();
+
+                fragment.setPoll(poll);
+                fragment.setVotedPollDetails(poll.getProjectVos().subList(0, 1));
+                fragment.setEditable(false);
+
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.container_body, fragment).addToBackStack("details_fragment")
+                        .commit();
 
             } else {
                 Log.e("HomeFragment", "Error sending vote");

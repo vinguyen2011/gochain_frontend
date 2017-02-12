@@ -22,12 +22,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gochain.gochainandroid.R;
+import com.gochain.gochainandroid.SessionValueHelper;
 import com.gochain.gochainandroid.activities.DetailsFragment;
 import com.gochain.gochainandroid.model.Poll;
 import com.gochain.gochainandroid.model.PollDetails;
 import com.gochain.gochainandroid.vo.CampaignVo;
 import com.gochain.gochainandroid.vo.ProjectFlatVo;
 import com.gochain.gochainandroid.vo.ProjectVo;
+import com.gochain.gochainandroid.vo.VoteVo;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
@@ -44,9 +46,18 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
     private Fragment parent;
     private ProjectVo item;
     private Boolean editable, voted;
-    private List<DiscreteSeekBar> bars = new ArrayList<>();
+    private List<MyViewHolder> holders = new ArrayList<>();
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+        public String getProjectId() {
+            return projectId;
+        }
+
+        public void setProjectId(String projectId) {
+            this.projectId = projectId;
+        }
+
+        public String projectId;
         public TextView title, status, cost, percentage;
         private DiscreteSeekBar bar;
         private ImageButton infoBtn;
@@ -78,9 +89,22 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
         return new MyViewHolder(itemView);
     }
 
+    public List<VoteVo> getVotes() {
+        List<VoteVo> voteVos = new ArrayList<>(holders.size());
+        for (MyViewHolder holder: holders) {
+            VoteVo voteVo = new VoteVo(SessionValueHelper.getSessionUser().getUser().getUsername(),
+                    holder.getProjectId(),
+                    ((float)holder.bar.getProgress())/100);
+            voteVos.add(voteVo);
+        }
+        return voteVos;
+    }
+
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         item = itemList.get(position);
+
+        holder.setProjectId(item.getProjectId());
 
         holder.title.setText(item.getName());
         holder.status.setText(String.valueOf(item.getCostCovered()));
@@ -104,16 +128,16 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
                 public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
                     holder.percentage.setText("Current selection: " + value + "%");
                     int sum = 0;
-                    for (int i = 0; i < bars.size(); i++) {
-                        sum = sum + bars.get(i).getProgress();
+                    for (int i = 0; i < holders.size(); i++) {
+                        sum = sum + holders.get(i).bar.getProgress();
                     }
                     int extra = sum - 100;
                     if (extra > 0) {
                         // balance others
                         List<DiscreteSeekBar> otherBars = new ArrayList<DiscreteSeekBar>();
-                        for (int i = 0; i < bars.size(); i++) {
-                            if (position != i && bars.get(i).getProgress() > 0) {
-                                otherBars.add(bars.get(i));
+                        for (int i = 0; i < holders.size(); i++) {
+                            if (position != i && holders.get(i).bar.getProgress() > 0) {
+                                otherBars.add(holders.get(i).bar);
                             }
                         }
 
@@ -142,7 +166,7 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
                 }
             });
 
-            bars.add(holder.bar);
+            holders.add(holder);
         }
 
         // add button listener
