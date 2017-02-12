@@ -77,7 +77,7 @@ public class DetailsFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-        mProgressView = rootView.findViewById(R.id.details_progress);
+        mProgressView = rootView.findViewById(R.id.details_progress_container);
 
         return rootView;
     }
@@ -114,14 +114,7 @@ public class DetailsFragment extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-            scrollView.setVisibility(show ? View.GONE : View.VISIBLE);
-            scrollView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    scrollView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
+            setFadingAnimation(show, shortAnimTime);
 
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mProgressView.animate().setDuration(shortAnimTime).alpha(
@@ -136,7 +129,27 @@ public class DetailsFragment extends Fragment {
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             scrollView.setVisibility(show ? View.GONE : View.VISIBLE);
+            submitBtn.setVisibility(show ? View.GONE : View.VISIBLE);
         }
+    }
+
+    private void setFadingAnimation(final boolean show, int shortAnimTime) {
+        scrollView.setVisibility(show ? View.GONE : View.VISIBLE);
+        scrollView.animate().setDuration(shortAnimTime).alpha(
+                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                scrollView.setVisibility(show ? View.GONE : View.VISIBLE);
+            }
+        });
+        submitBtn.setVisibility(show ? View.GONE : View.VISIBLE);
+        submitBtn.animate().setDuration(shortAnimTime).alpha(
+                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                submitBtn.setVisibility(show ? View.GONE : View.VISIBLE);
+            }
+        });
     }
 
 
