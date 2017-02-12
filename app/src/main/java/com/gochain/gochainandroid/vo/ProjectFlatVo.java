@@ -23,23 +23,6 @@ public class ProjectFlatVo {
         super();
     }
 
-    public ProjectFlatVo(String projectId, String name, String location, String description, int cost, int costCovered,
-                         String voteRestrictionField, List<String> voteRestrictionValues,
-                         String voteRestriction, Long expiryDate, List<String> tags, int pictureID) {
-        this.projectId = projectId;
-        this.name = name;
-        this.location = location;
-        this.description = description;
-        this.cost = cost;
-        this.costCovered = costCovered;
-        this.voteRestrictionField = voteRestrictionField;
-        this.voteRestriction = voteRestriction;
-        this.expiryDate = expiryDate;
-        this.tags = tags;
-        this.voteRestrictionValues = voteRestrictionValues;
-        this.pictureID = pictureID;
-    }
-
     public String getProjectId() {
         return projectId;
     }
