@@ -31,7 +31,8 @@
                 android:layout_toRightOf="@+id/item_photo"
                 android:layout_alignParentTop="true"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:ellipsize="end"/>
 
             <TextView
                 android:text="TextView"
@@ -39,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/item_name"
                 android:layout_toRightOf="@+id/item_photo"
-                android:id="@+id/daysRemained" />
+                android:id="@+id/daysRemained"
+                android:ellipsize="end"/>
 
             <ImageView
                 android:id="@+id/overflow"

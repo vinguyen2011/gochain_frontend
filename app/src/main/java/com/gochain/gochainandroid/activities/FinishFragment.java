@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FinishFragment extends Fragment {
-    private RecyclerView recyclerViewVotedPolls, recyclerViewPolls;
+    private RecyclerView recyclerViewPolls;
     private List<ProjectVo> votedPollDetails = new ArrayList<>();
     private CampaignVo poll;
     private Boolean editable;
@@ -65,19 +65,6 @@ public class FinishFragment extends Fragment {
         recyclerViewPolls.setItemAnimator(new DefaultItemAnimator());
         recyclerViewPolls.setAdapter(adapterPolls);
 
-        // voted polls
-        recyclerViewVotedPolls = (RecyclerView) rootView.findViewById(R.id.recycler_view_voted_polls);
-        adapterVotedPolls = new PollDetailsAdapter(this, votedPollDetails, editable, true);
-
-        RecyclerView.LayoutManager allLayoutManager = new LinearLayoutManager(this.getContext());
-        recyclerViewVotedPolls.setLayoutManager(allLayoutManager);
-        recyclerViewVotedPolls.setItemAnimator(new DefaultItemAnimator());
-        recyclerViewVotedPolls.setAdapter(adapterVotedPolls);
-
-        if (this.editable == false) {
-            DiscreteSeekBar bar = (DiscreteSeekBar) recyclerViewVotedPolls.findViewById(R.id.voteBar);
-            recyclerViewVotedPolls.removeView(bar);
-        }
         return rootView;
     }
 
@@ -89,10 +76,6 @@ public class FinishFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-    }
-
-    public void setVotedPollDetails(List<ProjectVo> votedPollDetails){
-        this.votedPollDetails = votedPollDetails;
     }
 
     public void setPoll(CampaignVo poll){

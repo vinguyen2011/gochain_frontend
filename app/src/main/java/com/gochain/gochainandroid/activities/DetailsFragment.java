@@ -123,7 +123,6 @@ public class DetailsFragment extends Fragment {
                 FinishFragment fragment = new FinishFragment();
 
                 fragment.setPoll(poll);
-                fragment.setVotedPollDetails(poll.getProjectVos().subList(0, 1));
                 fragment.setEditable(false);
 
                 getFragmentManager()

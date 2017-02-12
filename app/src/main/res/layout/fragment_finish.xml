@@ -27,31 +27,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/daysRemained" />
 
-    <TextView
-        android:text="Projects you have voted"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/votedPollLbl"
-        android:textStyle="bold"
-        android:padding="8dp"
-        android:textColor="@color/colorPrimary"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view_voted_polls"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:scrollbars="vertical" />
-
-    <TextView
-        android:text="All projects"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/pollLbl"
-        android:textStyle="bold"
-        android:padding="8dp"
-        android:textColor="@color/colorPrimary" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_polls"
         android:layout_width="match_parent"
