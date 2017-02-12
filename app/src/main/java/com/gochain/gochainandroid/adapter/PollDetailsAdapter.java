@@ -14,9 +14,7 @@ import android.widget.TextView;
 
 import com.gochain.gochainandroid.R;
 import com.gochain.gochainandroid.SessionValueHelper;
-import com.gochain.gochainandroid.model.Poll;
 import com.gochain.gochainandroid.services.ImageProvider;
-import com.gochain.gochainandroid.vo.CampaignVo;
 import com.gochain.gochainandroid.vo.ProjectVo;
 import com.gochain.gochainandroid.vo.VoteVo;
 
@@ -26,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by vinguyen on 07/02/2017.
@@ -129,32 +126,7 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
                 @Override
                 public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
                     holder.percentage.setText("Current selection: " + value + "%");
-                    int sum = 0;
-                    for (int i = 0; i < holders.size(); i++) {
-                        sum = sum + holders.get(i).bar.getProgress();
-                    }
-                    int extra = sum - 100;
-                    if (extra > 0) {
-                        // balance others
-                        List<DiscreteSeekBar> otherBars = new ArrayList<DiscreteSeekBar>();
-                        for (int i = 0; i < holders.size(); i++) {
-                            if (position != i && holders.get(i).bar.getProgress() > 0) {
-                                otherBars.add(holders.get(i).bar);
-                            }
-                        }
-
-                        if (otherBars.size() > 0) {
-                            int adjustment = extra / (otherBars.size());
-                            for (int i = 0; i < otherBars.size(); i++) {
-                                if (i < otherBars.size() - 1) {
-                                    otherBars.get(i).setProgress(otherBars.get(i).getProgress() - adjustment);
-                                } else {
-                                    int remaining = extra - (adjustment * (otherBars.size() - 1));
-                                    otherBars.get(i).setProgress(otherBars.get(i).getProgress() - remaining);
-                                }
-                            }
-                        }
-                    }
+                    recalculateVotes(position);
                 }
 
                 @Override
@@ -205,6 +177,35 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
                 dialog.show();
             }
         });
+    }
+
+    private void recalculateVotes(int position) {
+        int sum = 0;
+        for (int i = 0; i < holders.size(); i++) {
+            sum = sum + holders.get(i).bar.getProgress();
+        }
+        int extra = sum - 100;
+        if (extra > 0) {
+            // balance others
+            List<DiscreteSeekBar> otherBars = new ArrayList<DiscreteSeekBar>();
+            for (int i = 0; i < holders.size(); i++) {
+                if (position != i && holders.get(i).bar.getProgress() > 0) {
+                    otherBars.add(holders.get(i).bar);
+                }
+            }
+
+            if (otherBars.size() > 0) {
+                int adjustment = extra / (otherBars.size());
+                for (int i = 0; i < otherBars.size(); i++) {
+                    if (i < otherBars.size() - 1) {
+                        otherBars.get(i).setProgress(otherBars.get(i).getProgress() - adjustment);
+                    } else {
+                        int remaining = extra - (adjustment * (otherBars.size() - 1));
+                        otherBars.get(i).setProgress(otherBars.get(i).getProgress() - remaining);
+                    }
+                }
+            }
+        }
     }
 
     public void sort(List<ProjectVo> list) {
