@@ -99,10 +99,6 @@ public class ProjectFlatVo {
         return voteRestriction;
     }
 
-    public void setVoteRestriction(String voteRestriction) {
-        this.voteRestriction = voteRestriction;
-    }
-
     public Long getExpiryDate() {
         return expiryDate;
     }
@@ -117,6 +113,10 @@ public class ProjectFlatVo {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public void setVoteRestriction(String voteRestriction) {
+        this.voteRestriction = voteRestriction;
     }
 
     @Override

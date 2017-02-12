@@ -34,49 +34,30 @@ public class ProjectVo {
         return projectId;
     }
 
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public int getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
 
     public int getCostCovered() {
         return costCovered;
     }
 
-    public void setCostCovered(int costCovered) {
-        this.costCovered = costCovered;
-    }
 
     public int getPictureId() {
         return pictureId;
@@ -85,4 +66,23 @@ public class ProjectVo {
     public void setPictureId(int pictureId) {
         this.pictureId = pictureId;
     }
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setLocation(String location) {
+        this.location = location;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+    public void setCostCovered(int costCovered) {
+        this.costCovered = costCovered;
+    }
+
 }
