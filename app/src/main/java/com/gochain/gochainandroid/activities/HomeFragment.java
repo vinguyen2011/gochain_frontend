@@ -48,7 +48,11 @@ public class HomeFragment extends Fragment {
         itemList = new ArrayList<>();
         displayItems();
 
+        if (mRestTask == null) {
+            mRestTask = new RestTask();
+        }
         mRestTask.execute();
+
         // Inflate the layout for this fragment
         return rootView;
     }
@@ -101,6 +105,7 @@ public class HomeFragment extends Fragment {
                 adapter.add(itemList);
                 adapter.notifyDataSetChanged();
             }
+            mRestTask = null;
         }
 
         @Override

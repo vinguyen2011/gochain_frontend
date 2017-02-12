@@ -2,32 +2,18 @@ package com.gochain.gochainandroid.adapter;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Rect;
-import android.support.annotation.BoolRes;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.gochain.gochainandroid.R;
 import com.gochain.gochainandroid.SessionValueHelper;
-import com.gochain.gochainandroid.activities.DetailsFragment;
-import com.gochain.gochainandroid.model.Poll;
-import com.gochain.gochainandroid.model.PollDetails;
-import com.gochain.gochainandroid.vo.CampaignVo;
-import com.gochain.gochainandroid.vo.ProjectFlatVo;
 import com.gochain.gochainandroid.vo.ProjectVo;
 import com.gochain.gochainandroid.vo.VoteVo;
 
@@ -35,6 +21,7 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by vinguyen on 07/02/2017.
@@ -47,6 +34,12 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
     private ProjectVo item;
     private Boolean editable, voted;
     private List<MyViewHolder> holders = new ArrayList<>();
+    private int[] photos = new int[]{
+            R.drawable.publicparksmall,
+            R.drawable.swimmingpoolsmall,
+            R.drawable.youthcentersmall,
+            R.drawable.amuseparksmall,
+            R.drawable.footballfieldsmall};
 
     public void clear() {
         itemList.clear();
@@ -197,7 +190,7 @@ public class PollDetailsAdapter extends RecyclerView.Adapter<PollDetailsAdapter.
                 cost.setText("Budget needed: " + itemA.getCost() + " €");
 
                 ImageView image = (ImageView) dialog.findViewById(R.id.image);
-                image.setImageResource(itemA.getPictureId());
+                image.setImageResource(photos[ThreadLocalRandom.current().nextInt(0, 5)]);
 
                 Button dialogButton = (Button) dialog.findViewById(R.id.closeBtn);
                 // if button is clicked, close the custom dialog
